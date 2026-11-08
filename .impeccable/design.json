@@ -12,7 +12,7 @@
       "line": { "role": "neutral", "displayName": "Hairline", "canonical": "#262624", "tonalRamp": ["oklch(15% 0.002 100)", "oklch(25.5% 0.003 100)", "oklch(36% 0.003 100)", "oklch(48% 0.003 100)", "oklch(60% 0.003 100)", "oklch(72% 0.002 100)", "oklch(84% 0.002 100)", "oklch(95% 0.001 100)"] }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Big Shoulders 900 amber caps: view titles, project-page title, index name tape, About email; full-measure titles fitted by measurement." },
+      "display": { "displayName": "Display", "purpose": "Big Shoulders 900 amber caps: view titles, project-page title, static index name, About email; full-measure titles fitted by measurement." },
       "headline": { "displayName": "Headline", "purpose": "Big Shoulders 800 amber caps: project rows, title tape, Projects (11) action, Previous/Next titles." },
       "title": { "displayName": "Title", "purpose": "The one headline result on a project page, tabular." },
       "lead": { "displayName": "Lead", "purpose": "The About statement, max 28ch." },
@@ -23,7 +23,7 @@
     "shadows": [],
     "motion": [
       { "name": "link-color", "value": "color 150ms ease-out", "purpose": "Hover, focus and current-page color swap." },
-      { "name": "ticker-tape", "value": "translateX(0 to -50%), linear, infinite; 38s name, 60s symbols (reverse), 90s titles", "purpose": "Perpetual ticker on the index. Pauses on hover, focus-within and the Pause control (aria-pressed); none under prefers-reduced-motion (WCAG 2.2.2)." },
+      { "name": "ticker-tape", "value": "translateX(0 to -50%), linear, infinite; 60s symbols (reverse), 90s titles; the name is static", "purpose": "Perpetual ticker on the index. Pauses on hover, focus-within and the Pause control (aria-pressed); none under prefers-reduced-motion (WCAG 2.2.2)." },
       { "name": "particle-transition", "value": "1250ms; disperse ease-out cubic over first 32%, fuse ease-in-out cubic; left-to-right stagger up to 24%", "purpose": "View change: text and drawings dissolve to amber particles, white-hot in flight, and re-form." },
       { "name": "particle-intro", "value": "600ms fuse only", "purpose": "First load: particles fuse into the first view." },
       { "name": "content-fade", "value": "opacity 0 to 1, 220ms ease-out", "purpose": "DOM fades in over settled particles; the whole transition under reduced motion." }

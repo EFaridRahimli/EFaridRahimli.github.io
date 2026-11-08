@@ -136,7 +136,7 @@ Terminal phosphor: one hot amber and one rare signal green on a near-black groun
 **Character:** Condensed signage capitals shout from the board; a semi-condensed terminal mono reads and counts underneath. The pairing is a departures board over a Bloomberg screen.
 
 ### Hierarchy
-- **Display** (900, uppercase, 0.86 line-height, amber): view titles and the project-page title (clamp in token, max 15ch, balanced), the index name tape (min(34vh, 26vw) on phones, min(34vh, 16.5vw) from md), and the About email (lowercase). Projects and About titles and the email are sized by measurement to span the measure.
+- **Display** (900, uppercase, 0.86 line-height, amber): view titles and the project-page title (clamp in token, max 15ch, balanced), the static index name (fitted to the measure: two lines on phones, one line from md), and the About email (lowercase). Projects and About titles and the email are sized by measurement to span the measure.
 - **Headline** (800, uppercase, 0.92, amber): project rows, the title tape (clamp(2.4rem, 10vh, 7rem)), the Projects (11) action (clamp(2.2rem, 4.4vw, 4rem)), Previous/Next titles (clamp(1.6rem, 3vw, 2.75rem)).
 - **Title** (600, tabular, 1.25): the one result that matters on a project page.
 - **Lead** (500, 1.1, max 28ch): the About statement.
@@ -174,7 +174,7 @@ No containers, so no corner language; the only radius is 2px on the focus outlin
 Fixed ground-colored header, 14px: name (600) left, Projects / About / Email right, 8px horizontal and 12px vertical padding per link. Paper white at rest; hover and `aria-current="page"` go amber over 150ms ease-out. A project page marks Projects as current. Email is a `mailto:` link on every view.
 
 ### Ticker Tape (signature)
-A full-bleed row with a hairline above: the sequence rendered twice, sliding by half its width on an infinite linear loop (name 38s left, symbols 60s right, titles 90s left). The second copy is `inert` and `aria-hidden` so links tab once; decorative tapes are `aria-hidden` and the name lives in a screen-reader-only `h1`. Items are separated by a Graphite slash. Deliberate exception to the no-perpetual-motion default, user-requested and WCAG 2.2.2 compliant: tapes pause on hover and focus-within, a visible Pause ticker / Resume ticker button (`aria-pressed`) stops all three, and under `prefers-reduced-motion` they do not animate and scroll horizontally instead.
+A full-bleed row with a hairline above: the sequence rendered twice, sliding by half its width on an infinite linear loop (symbols 60s right, titles 90s left; the name above them is static). The second copy is `inert` and `aria-hidden` so links tab once; decorative tapes are `aria-hidden` and the name lives in a screen-reader-only `h1`. Items are separated by a Graphite slash. Deliberate exception to the no-perpetual-motion default, user-requested and WCAG 2.2.2 compliant: tapes pause on hover and focus-within, a visible Pause ticker / Resume ticker button (`aria-pressed`) stops both, and under `prefers-reduced-motion` they do not animate and scroll horizontally instead.
 
 ### Quote Line
 Symbol (bold amber), quote (paper white), optional delta (green, with ▲ or ▼), then category in Graphite. Appears in the symbol tape, under each project row's category, and under the project title.

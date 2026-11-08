@@ -159,9 +159,7 @@ function Tape({ children, dur, reverse, className = '', decorative }: { children
   )
 }
 
-const Sep = ({ small }: { small?: boolean }) => (
-  <span aria-hidden className={`text-muted ${small ? 'self-center text-[0.45em]' : ''}`}>/</span>
-)
+const Sep = () => <span aria-hidden className="text-muted">/</span>
 
 function Index() {
   const [paused, setPaused] = useState(false)
@@ -169,13 +167,10 @@ function Index() {
     <section className={`-mx-(--gut) flex min-h-svh flex-col pt-16 ${paused ? 'is-paused' : ''}`}>
       <h1 tabIndex={-1} className="sr-only">Farid Rahimli, ML engineer</h1>
       <div className="flex flex-1 flex-col justify-center">
-        <Tape dur={38} decorative className="display py-[1.5vh] text-[min(34vh,26vw)] md:text-[min(34vh,16.5vw)]">
-          {['Farid Rahimli', 'ML Engineer', 'Farid Rahimli', 'Vision · MLOps'].map((t, k) => (
-            <span key={k} className="flex items-baseline gap-[0.3em]">
-              {t} <Sep small />
-            </span>
-          ))}
-        </Tape>
+        <div aria-hidden className="border-t border-line px-(--gut) py-[2vh]">
+          <Fit className="display md:hidden" lines={['Farid', 'Rahimli']} />
+          <Fit className="display hidden md:block" lines={['Farid Rahimli']} />
+        </div>
         <Tape dur={60} reverse decorative className="py-3 text-[clamp(0.95rem,1.6vw,1.35rem)] tabular-nums">
           {projects.map((p) => (
             <span key={p.slug} className="flex items-baseline gap-[0.6em] pr-[1.4em]">
