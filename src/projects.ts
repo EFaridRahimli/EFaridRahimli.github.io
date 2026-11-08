@@ -1,152 +1,142 @@
-export type Category = 'Computer vision' | 'Machine learning' | 'MLOps & cloud' | 'Apps & analysis'
+export type Category = 'Vision' | 'Data' | 'NLP' | 'MLOps' | 'Apps'
 
 export type Project = {
-  repo: string
+  slug: string
   title: string
+  tagline: string
   category: Category
-  year: number
-  metric?: string
-  metricLabel?: string
   summary: string
+  results: string[]
   stack: string[]
+  repo: string
   demo?: string
-  // Featured projects get a large card with a visual.
-  visual?: { kind: 'image'; src: string; alt: string } | { kind: 'yolo' } | { kind: 'serengeti' } | { kind: 'camelot' }
 }
 
-export const categoryColor: Record<Category, string> = {
-  // Stain colours, tuned to read on the black glass.
-  'Computer vision': '#8fd3c1',
-  'Machine learning': '#c5dc7a',
-  'MLOps & cloud': '#f0c060',
-  'Apps & analysis': '#b8a8f0',
-}
+const gh = (name: string) => `https://github.com/EFaridRahimli/${name}`
 
-// Numbers come from each repo's notebook outputs and training logs (see the repo READMEs).
 export const projects: Project[] = [
   {
-    repo: 'Capstone',
+    slug: '01-tomato-leaf-detection',
     title: 'Tomato Leaf Disease Detection',
-    category: 'Computer vision',
-    year: 2025,
-    metric: '0.957',
-    metricLabel: 'test mAP@0.5',
-    summary: 'Fine-tuned YOLOv8 to find diseased tomato leaves in field images. It beat a YOLOv5s benchmark at 2–6 ms per image.',
-    stack: ['YOLOv8', 'YOLOv5', 'PyTorch', 'CUDA'],
-    visual: { kind: 'yolo' },
+    tagline: 'YOLOv8 detection of tomato leaf disease in field images.',
+    category: 'Vision',
+    summary:
+      'A computer-vision capstone that fine-tunes YOLOv8 to detect tomato-leaf diseases in field images, benchmarked against YOLOv5s, to automate slow and costly manual crop surveys.',
+    results: ['mAP@0.5 of 0.957 on 1,051 test images', 'mAP@0.5:0.95 of 0.840 vs 0.688 for YOLOv5s', '~2–6 ms inference per image'],
+    stack: ['YOLOv8', 'YOLOv5', 'PyTorch'],
+    repo: gh('Capstone'),
   },
   {
-    repo: 'M599_subsmission_serengeti_camera_trap_benchmarking',
+    slug: '02-serengeti-camera-trap',
     title: 'Serengeti Camera-Trap Benchmark',
-    category: 'Computer vision',
-    year: 2025,
-    metric: '81.1%',
-    metricLabel: 'ResNet-50 val. accuracy',
-    summary: 'Benchmarked VGG-19, ResNet-50 and MobileNetV2 on wildlife camera-trap images. ResNet-50 led; MobileNetV2 was fastest, for 2.7 points less.',
-    stack: ['TensorFlow', 'Transfer learning', 'AzCopy'],
-    visual: { kind: 'serengeti' },
+    tagline: 'Wildlife classification from camera-trap images.',
+    category: 'Vision',
+    summary:
+      'Benchmarks VGG-19, ResNet-50 and MobileNetV2 on Snapshot Serengeti Season 8, weighing accuracy against latency for conservation AI and edge deployment.',
+    results: ['ResNet-50: 81.09% validation accuracy', 'MobileNetV2: fastest at 5.23 ms / image', 'Accuracy vs latency trade-off study'],
+    stack: ['CNNs', 'ResNet-50', 'MobileNetV2', 'VGG-19'],
+    repo: gh('M599_subsmission_serengeti_camera_trap_benchmarking'),
   },
   {
-    repo: 'Grape_Leaf_Classification',
+    slug: '03-grape-leaf-classification',
     title: 'Grape Leaf Disease Classification',
-    category: 'Computer vision',
-    year: 2026,
-    metric: '98.5%',
-    metricLabel: 'test accuracy',
-    summary: 'A custom CNN that sorts vineyard leaf photos into four health classes, chosen from 10 controlled architecture experiments.',
-    stack: ['TensorFlow', 'Keras', 'CNN', 'Augmentation'],
-    visual: { kind: 'image', src: '/projects/grape.webp', alt: 'Grape leaf samples from the Black Rot and ESCA classes' },
+    tagline: 'CNN flagging grape-leaf disease early.',
+    category: 'Vision',
+    summary:
+      'A CNN that classifies grape-leaf photos as Black Rot, ESCA, Leaf Blight or Healthy, so vineyard cameras can flag disease before manual inspection would.',
+    results: ['98.5% test accuracy', 'Best of 10 controlled architecture experiments'],
+    stack: ['CNN', 'Keras', 'TensorFlow'],
+    repo: gh('Grape_Leaf_Classification'),
   },
   {
-    repo: 'keysync',
+    slug: '04-keysync',
     title: 'KeySync',
-    category: 'Apps & analysis',
-    year: 2026,
-    summary: 'Connects to Spotify, reads each track’s key and BPM, and finds songs that mix harmonically on the Camelot wheel.',
-    stack: ['React 19', 'Vercel Functions', 'Spotify API', 'OAuth PKCE'],
+    tagline: 'Find Spotify tracks that mix harmonically.',
+    category: 'Apps',
+    summary:
+      'Connects to Spotify, reads the key and BPM of your tracks, and finds Camelot-wheel compatible songs so DJs and playlist makers can build smooth, in-key transitions.',
+    results: ['Spotify OAuth 2.0 + PKCE login', 'Camelot-wheel harmonic matching', 'Live web app'],
+    stack: ['TypeScript', 'Spotify API', 'Vercel'],
+    repo: gh('keysync'),
     demo: 'https://keysync-beta.vercel.app',
-    visual: { kind: 'camelot' },
   },
   {
-    repo: 'M516-Submission',
+    slug: '05-gamma-ray-classification',
     title: 'Gamma-Ray Signal Classification',
-    category: 'Machine learning',
-    year: 2025,
-    metric: '86.6%',
-    metricLabel: 'accuracy',
-    summary: 'Separates gamma-ray signals from hadron noise in telescope data. Tuned XGBoost beat a Keras neural network.',
-    stack: ['XGBoost', 'Keras'],
+    tagline: 'Separating gamma signals from hadron noise.',
+    category: 'Data',
+    summary:
+      'Classifies MAGIC Gamma Telescope events as valuable gamma-ray signals or hadronic background noise, the filtering the Cherenkov Telescope Array needs.',
+    results: ['Tuned XGBoost: 86.6% accuracy', 'Beat a Keras MLP on this tabular problem'],
+    stack: ['XGBoost', 'Keras', 'scikit-learn'],
+    repo: gh('M516-Submission'),
   },
   {
-    repo: 'bike_sharing_demand',
+    slug: '06-bike-sharing-demand',
     title: 'Bike Sharing Demand Forecast',
-    category: 'Machine learning',
-    year: 2025,
-    metric: '−77%',
-    metricLabel: 'Kaggle error',
-    summary: 'AutoGluon ensembles forecast hourly rentals; feature engineering cut the Kaggle score from 1.86 to 0.42.',
-    stack: ['AutoGluon', 'CatBoost'],
+    tagline: 'Hourly rental demand with AutoML.',
+    category: 'Data',
+    summary:
+      'Forecasts hourly bike-rental demand for the Kaggle Bike Sharing Demand competition with AutoGluon, driven by feature engineering and tuning.',
+    results: ['Kaggle score improved from 1.864 to 0.421'],
+    stack: ['AutoGluon', 'pandas', 'Kaggle'],
+    repo: gh('bike_sharing_demand'),
   },
   {
-    repo: 'hotel_cancellation',
+    slug: '07-hotel-cancellation',
     title: 'Hotel Cancellation Prediction',
-    category: 'Machine learning',
-    year: 2024,
-    metric: '89.2%',
-    metricLabel: 'accuracy',
-    summary: 'Predicts which hotel bookings will be cancelled so staffing can be planned. XGBoost with SMOTE class balancing.',
-    stack: ['XGBoost', 'SMOTE'],
+    tagline: 'Predicting which bookings get cancelled.',
+    category: 'Data',
+    summary:
+      'Predicts whether a hotel booking will be cancelled so a hotel chain can plan staffing and avoid both empty rooms and overbooking.',
+    results: ['XGBoost: 89.2% accuracy on 10,883 bookings', 'Chosen from five tuned classifiers'],
+    stack: ['XGBoost', 'scikit-learn'],
+    repo: gh('hotel_cancellation'),
   },
   {
-    repo: 'Movie-Sentiment-Analysis',
+    slug: '08-movie-review-sentiment',
     title: 'Movie Review Sentiment',
-    category: 'Machine learning',
-    year: 2024,
-    metric: '88.5%',
-    metricLabel: 'accuracy',
-    summary: 'NLP pipeline that labels movie reviews positive or negative using TF-IDF and VADER features with Naive Bayes.',
-    stack: ['NLTK', 'scikit-learn'],
+    tagline: 'Review sentiment for a streaming platform.',
+    category: 'NLP',
+    summary:
+      'An NLP pipeline that labels movie reviews as positive or negative to power "Popular" and "Top" sections and recommendations without reading reviews by hand.',
+    results: ['88.5% accuracy on 8,000 held-out reviews', 'Trained on 40,000 IMDB reviews'],
+    stack: ['NLP', 'scikit-learn'],
+    repo: gh('Movie-Sentiment-Analysis'),
   },
   {
-    repo: 'SconeUnlimitedSubmission',
+    slug: '09-serverless-ml-workflow',
     title: 'Serverless ML Workflow',
-    category: 'MLOps & cloud',
-    year: 2025,
-    summary: 'Event-driven image classification on AWS: Step Functions chain three Lambdas, with a confidence gate and Model Monitor.',
-    stack: ['SageMaker', 'Step Functions'],
+    tagline: 'Event-driven image classification on AWS.',
+    category: 'MLOps',
+    summary:
+      'An end-to-end, event-driven workflow that classifies delivery-vehicle images, chaining Lambda functions with Step Functions and monitoring live inference with Model Monitor.',
+    results: ['Low-confidence predictions filtered at 0.67', 'SageMaker endpoint + Model Monitor'],
+    stack: ['SageMaker', 'Lambda', 'Step Functions'],
+    repo: gh('SconeUnlimitedSubmission'),
   },
   {
-    repo: 'DeepLearningUdacity',
-    title: 'Dog Breed Classifier on SageMaker',
-    category: 'MLOps & cloud',
-    year: 2025,
-    summary: 'ResNet-18 transfer learning on SageMaker with hyper-parameter tuning, Debugger and Profiler, deployed to an endpoint.',
-    stack: ['SageMaker', 'PyTorch'],
+    slug: '10-dog-breed-classifier',
+    title: 'Dog Breed Classifier',
+    tagline: 'ResNet-18 fine-tuned and deployed on SageMaker.',
+    category: 'MLOps',
+    summary:
+      'Fine-tunes a pretrained ResNet-18 to classify dog breeds using the SageMaker toolkit: hyperparameter tuning, Debugger, Profiler and a deployed inference endpoint.',
+    results: ['Hyperparameter search over learning rate and batch size', 'Deployed as a live SageMaker endpoint'],
+    stack: ['PyTorch', 'SageMaker', 'S3'],
+    repo: gh('DeepLearningUdacity'),
   },
   {
-    repo: 'Car_Dealership_EDA',
+    slug: '11-car-dealership-eda',
     title: 'Car Dealership EDA',
-    category: 'Apps & analysis',
-    year: 2024,
-    metric: '558k',
-    metricLabel: 'sales analysed',
-    summary: 'Exploratory analysis of US car sales to help a dealership decide what to stock, how to price and where to expand.',
-    stack: ['pandas', 'Plotly'],
+    tagline: 'What to stock, price and where to expand.',
+    category: 'Data',
+    summary:
+      'Exploratory analysis of 558,837 US used-car sales to help a California dealership decide what to stock, how to price, and where to expand.',
+    results: ['558,837 sales analysed', 'Price vs market (MMR) index feature'],
+    stack: ['pandas', 'Matplotlib', 'Seaborn'],
+    repo: gh('Car_Dealership_EDA'),
   },
 ]
 
-export const categories = [...new Set(projects.map((p) => p.category))]
-
-// Test-set results from the Capstone notebook.
-export const yoloResults = [
-  { model: 'YOLOv8', map50: 0.957, map5095: 0.826 },
-  { model: 'YOLOv8 tuned', map50: 0.954, map5095: 0.84 },
-  { model: 'YOLOv5s', map50: 0.924, map5095: 0.688 },
-]
-
-// Validation accuracy per epoch, from the Serengeti repo's *_log.csv files.
-export const serengetiLogs = [
-  { model: 'ResNet-50', color: '#8fd3c1', values: [0.694, 0.724, 0.745, 0.761, 0.771, 0.775, 0.777, 0.79, 0.789, 0.791, 0.793, 0.778, 0.801, 0.8, 0.799, 0.801, 0.795, 0.8, 0.8, 0.811] },
-  { model: 'VGG-19', color: '#b8a8f0', values: [0.671, 0.7, 0.728, 0.726, 0.749, 0.746, 0.754, 0.763, 0.773, 0.775, 0.78, 0.778, 0.788, 0.796, 0.785, 0.792, 0.795, 0.791, 0.799, 0.81] },
-  { model: 'MobileNetV2', color: '#c5dc7a', values: [0.675, 0.708, 0.714, 0.731, 0.743, 0.734, 0.753, 0.741, 0.751, 0.752, 0.757, 0.766, 0.779, 0.771, 0.771, 0.779, 0.773, 0.778, 0.784, 0.784] },
-]
+export const img = (slug: string) => `${import.meta.env.BASE_URL}projects/${slug}.webp`

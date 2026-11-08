@@ -1,269 +1,351 @@
-import { useCallback, useState } from 'react'
-import { ProjectMap } from './ProjectMap'
-import { categories, categoryColor, projects, serengetiLogs, yoloResults, type Category, type Project } from './projects'
+import { useEffect, useState, type ReactNode } from 'react'
+import { AnimatePresence, MotionConfig, motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import { projects, img, type Category, type Project } from './projects'
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from './components/ui/dialog'
+import { cn } from './lib/utils'
 
 const GITHUB = 'https://github.com/EFaridRahimli'
-const EMAIL = 'erahimlif@gmail.com'
-const YEAR = new Date().getFullYear()
-const repoUrl = (repo: string) => `${GITHUB}/${repo}`
+const SECTIONS = ['work', 'about', 'contact'] as const
+const FILTERS: ('All' | Category)[] = ['All', 'Vision', 'Data', 'NLP', 'MLOps', 'Apps']
+const ease = [0.22, 1, 0.36, 1] as const
 
-const featured = projects.filter((p) => p.visual)
-const others = projects.filter((p) => !p.visual)
-const countIn = (c: Category) => projects.filter((p) => p.category === c).length
-
-const Icon = ({ d }: { d: string }) => (
-  <svg className="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <path d={d} />
-  </svg>
-)
-const External = () => <Icon d="M5 11 11 5M6.5 5H11v4.5" />
-const Up = () => <Icon d="M8 13V3M4 7l4-4 4 4" />
-const Check = () => <Icon d="m3.5 8.5 3 3 6-7" />
-
-function YoloChart() {
-  const W = 600, H = 300, left = 120, right = 40, top = 44, rowH = 72
-  const x = (v: number) => left + v * (W - left - right)
+export default function App() {
+  const [open, setOpen] = useState<Project | null>(null)
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Test mAP@0.5 and mAP@0.5:0.95: YOLOv8 0.957 and 0.826, YOLOv8 tuned 0.954 and 0.840, YOLOv5s 0.924 and 0.688">
-      <g className="chart__legend">
-        <rect x={left} y="14" width="10" height="4" rx="2" fill="#8fd3c1" /><text x={left + 16} y="20">mAP@0.5</text>
-        <rect x={left + 100} y="14" width="10" height="4" rx="2" fill="#8fd3c1" opacity=".45" /><text x={left + 116} y="20">mAP@0.5:0.95</text>
-      </g>
-      {[0, 0.5, 1].map((v) => (
-        <g key={v}>
-          <line x1={x(v)} x2={x(v)} y1={top - 6} y2={H - 18} className="chart__grid" />
-          <text x={x(v)} y={H - 4} textAnchor="middle" className="chart__tick">{v}</text>
-        </g>
-      ))}
-      {yoloResults.map((r, i) => {
-        const y = top + i * rowH
-        return (
-          <g key={r.model}>
-            <text x={left - 12} y={y + 22} textAnchor="end" className="chart__label">{r.model}</text>
-            <rect x={x(0)} y={y + 6} width={x(r.map50) - x(0)} height="12" rx="3" fill="#8fd3c1" />
-            <rect x={x(0)} y={y + 24} width={x(r.map5095) - x(0)} height="12" rx="3" fill="#8fd3c1" opacity=".45" />
-            <text x={x(r.map50) + 6} y={y + 16} className="chart__tick">{r.map50.toFixed(3)}</text>
-            <text x={x(r.map5095) + 6} y={y + 34} className="chart__tick">{r.map5095.toFixed(3)}</text>
-          </g>
-        )
-      })}
-    </svg>
+    <MotionConfig reducedMotion="user" transition={{ duration: 0.6, ease }}>
+      <Nav />
+      <main className="mx-auto max-w-6xl px-5 sm:px-8">
+        <Hero />
+        <Work onOpen={setOpen} />
+        <About />
+        <Contact />
+      </main>
+      <footer className="mx-auto max-w-6xl px-5 pb-10 pt-6 text-sm text-muted sm:px-8">
+        <div className="border-t border-line pt-6">© {new Date().getFullYear()} Farid Rahimli</div>
+      </footer>
+      <ProjectDialog project={open} onClose={() => setOpen(null)} />
+    </MotionConfig>
   )
 }
 
-function SerengetiChart() {
-  const W = 600, H = 300, px = 48, py = 28
-  const lo = 0.6, hi = 0.85
-  const x = (i: number) => px + (i / 19) * (W - px * 2)
-  const y = (v: number) => H - py - ((v - lo) / (hi - lo)) * (H - py * 2)
+function Nav() {
+  const [active, setActive] = useState<string | null>(null)
+  const { scrollYProgress } = useScroll()
+  const dot = useTransform(useSpring(scrollYProgress, { stiffness: 120, damping: 30 }), (v) => `${v * 100}%`)
+
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: '-45% 0px -50% 0px' },
+    )
+    SECTIONS.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) io.observe(el)
+    })
+    return () => io.disconnect()
+  }, [])
+
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Validation accuracy over 20 epochs: ResNet-50 81.1%, VGG-19 81.0%, MobileNetV2 78.4%">
-      {[0.6, 0.7, 0.8].map((v) => (
-        <g key={v}>
-          <line x1={px} x2={W - px} y1={y(v)} y2={y(v)} className="chart__grid" />
-          <text x={px - 8} y={y(v) + 4} textAnchor="end" className="chart__tick">{Math.round(v * 100)}%</text>
-        </g>
-      ))}
-      <text x={W - px} y={H - 6} textAnchor="end" className="chart__tick">Epochs 1 to 20, axis starts at 60%</text>
-      {serengetiLogs.map((s) => (
-        <polyline key={s.model} fill="none" stroke={s.color} strokeWidth="1.6" points={s.values.map((v, i) => `${x(i)},${y(v)}`).join(' ')} />
-      ))}
-      {serengetiLogs.map((s, i) => (
-        <g key={s.model} transform={`translate(${px + 10} ${py + 8 + i * 20})`} className="chart__legend">
-          <line x1="0" x2="16" y1="-4" y2="-4" stroke={s.color} strokeWidth="1.6" />
-          <text x="24" y="0">{s.model} <tspan dx="4" className="chart__tick">{(s.values[19] * 100).toFixed(1)}%</tspan></text>
-        </g>
-      ))}
-    </svg>
-  )
-}
-
-function CamelotWheel() {
-  // Source key 8A with its harmonic neighbours: 7A and 9A (one step) and 8B (relative major).
-  const cx = 300, cy = 150
-  const at = (n: number, ring: 'A' | 'B') => {
-    const a = ((n - 1) / 12) * Math.PI * 2 - Math.PI / 2
-    const r = ring === 'B' ? 118 : 80
-    return { x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r }
-  }
-  const source = at(8, 'A')
-  const matches = [at(7, 'A'), at(9, 'A'), at(8, 'B')]
-  return (
-    <svg viewBox="0 0 600 300" role="img" aria-label="Camelot wheel: key 8A mixes harmonically with 7A, 9A and 8B">
-      {[52, 100, 138].map((r) => <circle key={r} cx={cx} cy={cy} r={r} className="chart__grid" fill="none" />)}
-      {matches.map((m, i) => <line key={i} x1={source.x} y1={source.y} x2={m.x} y2={m.y} stroke="#b8a8f0" strokeWidth="1.2" />)}
-      {(['A', 'B'] as const).flatMap((ring) =>
-        Array.from({ length: 12 }, (_, i) => {
-          const key = `${i + 1}${ring}`, p = at(i + 1, ring)
-          const isSource = key === '8A', isMatch = ['7A', '9A', '8B'].includes(key)
-          return (
-            <g key={key}>
-              {isSource || isMatch ? <circle cx={p.x} cy={p.y} r="13" fill={isSource ? '#b8a8f0' : '#2a2833'} stroke="#b8a8f0" /> : null}
-              <text x={p.x} y={p.y + 4} textAnchor="middle" className={isSource ? 'wheel__key is-source' : isMatch ? 'wheel__key is-match' : 'wheel__key'}>{key}</text>
-            </g>
-          )
-        }),
-      )}
-      <text x={cx} y={cy + 4} textAnchor="middle" className="chart__label">mixes with</text>
-    </svg>
-  )
-}
-
-function Visual({ p }: { p: Project }) {
-  const v = p.visual!
-  if (v.kind === 'image') return <img src={v.src} alt={v.alt} width={1200} height={600} loading="lazy" decoding="async" />
-  if (v.kind === 'yolo') return <YoloChart />
-  return v.kind === 'serengeti' ? <SerengetiChart /> : <CamelotWheel />
-}
-
-const Dot = ({ c }: { c: Category }) => <span className="dot" style={{ background: categoryColor[c] }} aria-hidden="true" />
-
-function FeaturedCard({ p, flash }: { p: Project; flash: boolean }) {
-  return (
-    <article id={`p-${p.repo}`} className={flash ? 'feature slide is-flash' : 'feature slide'}>
-      <div className="feature__media"><Visual p={p} /></div>
-      <div className="feature__body">
-        <p className="meta"><Dot c={p.category} />{p.category}<span className="meta__year">{p.year}</span></p>
-        <h3><a className="stretch" href={repoUrl(p.repo)} target="_blank" rel="noreferrer">{p.title}</a></h3>
-        {p.metric ? <p className="metric"><strong>{p.metric}</strong> {p.metricLabel}</p> : null}
-        <p className="feature__summary">{p.summary}</p>
-        <div className="feature__foot">
-          <p className="stack">{p.stack.join(', ')}</p>
-          {p.demo ? <a className="demo" href={p.demo} target="_blank" rel="noreferrer">Live demo <External /></a> : null}
+    <motion.header
+      initial={{ y: -24, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      className="fixed inset-x-0 top-4 z-40 px-4"
+    >
+      <nav className="mx-auto flex max-w-6xl items-center gap-6 rounded-2xl border border-line/80 bg-paper/75 px-5 py-3 shadow-[0_10px_30px_-18px_rgb(24_24_23/0.3)] backdrop-blur-md sm:px-7">
+        <a href="#top" className="whitespace-nowrap text-[17px] font-medium tracking-tight">Farid Rahimli</a>
+        {/* hairline doubles as a scroll-progress track */}
+        <div className="relative hidden h-px flex-1 bg-line md:block" aria-hidden>
+          <motion.span style={{ left: dot }} className="absolute top-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink" />
         </div>
+        <ul className="ml-auto flex items-center gap-1 text-sm md:ml-0">
+          {SECTIONS.map((id) => (
+            <li key={id}>
+              <a href={`#${id}`} className="relative block rounded-full px-3 py-1.5 capitalize text-ink/80 transition-colors hover:text-ink">
+                {active === id && (
+                  <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full bg-ink/[0.06]" transition={{ type: 'spring', stiffness: 400, damping: 34 }} />
+                )}
+                <span className="relative">{id}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <span className="hidden h-5 w-px bg-line sm:block" />
+        <a href={GITHUB} target="_blank" rel="noreferrer" className="hidden items-center gap-2 text-sm text-ink/80 transition-colors hover:text-ink sm:flex">
+          <Github className="size-4" /> GitHub
+        </a>
+      </nav>
+    </motion.header>
+  )
+}
+
+const rise = { hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } }
+
+function Hero() {
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const x = useSpring(mx, { stiffness: 60, damping: 20 })
+  const y = useSpring(my, { stiffness: 60, damping: 20 })
+  const { scrollY } = useScroll()
+  const drift = useTransform(scrollY, [0, 600], [0, 60])
+
+  return (
+    <section
+      id="top"
+      className="grid items-center gap-10 pb-16 pt-36 md:grid-cols-[1.05fr_1fr] md:pt-40"
+      onPointerMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect()
+        mx.set(((e.clientX - r.left) / r.width - 0.5) * -16)
+        my.set(((e.clientY - r.top) / r.height - 0.5) * -12)
+      }}
+    >
+      <motion.div initial="hidden" animate="show" transition={{ staggerChildren: 0.09, delayChildren: 0.15 }}>
+        <motion.p variants={rise} className="flex items-center gap-4 text-[11px] font-medium uppercase tracking-[0.32em] text-ink/70">
+          AI / Machine Learning Engineer <span className="h-px w-16 bg-ink/30" />
+        </motion.p>
+        <motion.h1 variants={rise} className="mt-6 text-[clamp(2.4rem,5vw,3.6rem)] font-medium leading-[1.05] tracking-[-0.03em]">
+          Building practical AI / ML systems from data to impact.
+        </motion.h1>
+        <motion.p variants={rise} className="mt-6 max-w-lg text-[17px] leading-relaxed text-muted">
+          I design, build and deploy machine learning solutions that solve real-world problems, from computer vision and
+          forecasting to scalable, production-ready ML workflows.
+        </motion.p>
+        <motion.div variants={rise} className="mt-9 flex flex-wrap gap-3">
+          <a href="#work" className="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3 text-sm text-paper shadow-[0_8px_20px_-8px_rgb(24_24_23/0.6)] transition hover:bg-ink/85">
+            View my work <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+          </a>
+          <a href="#about" className="inline-flex items-center rounded-full border border-line bg-card px-6 py-3 text-sm transition hover:border-ink/40">
+            About me
+          </a>
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease, delay: 0.2 }}
+        style={{ y: drift }}
+        className="relative"
+      >
+        <motion.img
+          src={img('05-gamma-ray-classification')}
+          alt="Line drawing of a radio telescope dish sending signals toward the stars"
+          style={{ x, y }}
+          className="w-full mix-blend-multiply brightness-[1.1] contrast-[1.06] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_80%)]"
+          fetchPriority="high"
+        />
+      </motion.div>
+    </section>
+  )
+}
+
+function Reveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.7, ease, delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+function SectionHead({ title, note }: { title: string; note?: string }) {
+  return (
+    <Reveal className="mb-10 grid items-center gap-4 md:grid-cols-[auto_1fr_minmax(0,22rem)] md:gap-8">
+      <h2 className="text-3xl font-medium tracking-tight">{title}</h2>
+      <motion.span
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.1, ease, delay: 0.2 }}
+        className="hidden h-px origin-left bg-ink/25 md:block"
+      />
+      {note && <p className="text-sm leading-relaxed text-muted">{note}</p>}
+    </Reveal>
+  )
+}
+
+function Work({ onOpen }: { onOpen: (p: Project) => void }) {
+  const [filter, setFilter] = useState<(typeof FILTERS)[number]>('All')
+  const shown = filter === 'All' ? projects : projects.filter((p) => p.category === filter)
+
+  return (
+    <section id="work" className="py-16">
+      <SectionHead
+        title="Selected Work"
+        note="AI / ML projects spanning computer vision, NLP, tabular modelling and MLOps. Open any card for details."
+      />
+      <Reveal className="mb-8 flex flex-wrap gap-2">
+        {FILTERS.map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            aria-pressed={filter === f}
+            className={cn(
+              'relative rounded-full border px-4 py-1.5 text-sm transition-colors',
+              filter === f ? 'border-ink text-paper' : 'border-line text-ink/70 hover:border-ink/40 hover:text-ink',
+            )}
+          >
+            {filter === f && <motion.span layoutId="filter-pill" className="absolute inset-0 rounded-full bg-ink" transition={{ type: 'spring', stiffness: 400, damping: 34 }} />}
+            <span className="relative">{f}</span>
+          </button>
+        ))}
+      </Reveal>
+
+      <motion.ul layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <AnimatePresence mode="popLayout">
+          {shown.map((p, i) => (
+            <motion.li
+              key={p.slug}
+              layout
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0, transition: { duration: 0.6, ease, delay: Math.min(i, 5) * 0.05 } }}
+              exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.2 } }}
+            >
+              <ProjectCard project={p} onOpen={() => onOpen(p)} />
+            </motion.li>
+          ))}
+        </AnimatePresence>
+      </motion.ul>
+    </section>
+  )
+}
+
+function ProjectCard({ project: p, onOpen }: { project: Project; onOpen: () => void }) {
+  return (
+    <button
+      onClick={onOpen}
+      className="group block w-full rounded-2xl border border-line/80 bg-card p-2.5 text-left shadow-[0_1px_0_rgb(255_255_255/0.8)_inset,0_10px_30px_-22px_rgb(24_24_23/0.35)] transition duration-500 ease-out hover:-translate-y-1 hover:border-ink/25 hover:shadow-[0_1px_0_rgb(255_255_255/0.8)_inset,0_24px_50px_-24px_rgb(24_24_23/0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+    >
+      <div className="aspect-[8/5] overflow-hidden rounded-xl bg-plate">
+        <img
+          src={img(p.slug)}
+          alt=""
+          loading="lazy"
+          className="size-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        />
       </div>
-    </article>
-  )
-}
-
-function Row({ p, flash }: { p: Project; flash: boolean }) {
-  return (
-    <li id={`p-${p.repo}`} className={flash ? 'row is-flash' : 'row'}>
-      <a href={repoUrl(p.repo)} target="_blank" rel="noreferrer">
-        <span className="row__title"><Dot c={p.category} />{p.title}</span>
-        <span className="row__summary">{p.summary}</span>
-        <span className="row__metric">{p.metric ? <><strong>{p.metric}</strong> {p.metricLabel}</> : null}</span>
-        <span className="row__year">{p.year} <External /></span>
-      </a>
-    </li>
-  )
-}
-
-function CopyEmail() {
-  const [state, setState] = useState<'idle' | 'copied' | 'failed'>('idle')
-  const copy = () => navigator.clipboard.writeText(EMAIL).then(() => setState('copied'), () => setState('failed'))
-  return (
-    <button type="button" className="btn btn--dark" onClick={copy}>
-      {state === 'copied' ? <>Copied <Check /></> : state === 'failed' ? 'Copy failed: use the link' : 'Copy email'}
+      <div className="flex items-end justify-between gap-4 px-2.5 pb-2 pt-4">
+        <div>
+          <h3 className="font-medium tracking-tight">{p.title}</h3>
+          <p className="mt-1 text-[13px] leading-snug text-muted">{p.tagline}</p>
+        </div>
+        <ArrowRight className="mb-0.5 size-4 shrink-0 text-ink/60 transition group-hover:translate-x-1 group-hover:text-ink" />
+      </div>
     </button>
   )
 }
 
-export default function App() {
-  const [filter, setFilter] = useState<Category | null>(null)
-  const [flash, setFlash] = useState<string | null>(null)
-
-  const pick = useCallback((repo: string) => {
-    // Picking from the map shows every project, so the target is never hidden by a filter.
-    setFilter(null)
-    setFlash(repo)
-    requestAnimationFrame(() => {
-      const el = document.getElementById(`p-${repo}`)
-      const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches
-      el?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'center' })
-      el?.querySelector('a')?.focus({ preventScroll: true })
-    })
-    setTimeout(() => setFlash((f) => (f === repo ? null : f)), 2200)
-  }, [])
-
-  const inFilter = (p: Project) => !filter || p.category === filter
-  const shownFeatured = featured.filter(inFilter)
-  const shownOthers = others.filter(inFilter)
+function ProjectDialog({ project: p, onClose }: { project: Project | null; onClose: () => void }) {
+  // keep the last project rendered while the close animation plays
+  const [last, setLast] = useState(p)
+  if (p && p !== last) setLast(p)
+  const shown = p ?? last
 
   return (
-    <>
-      <a className="skip" href="#work">Skip to projects</a>
-      <header className="top">
-        <a href="#top" className="top__name">Farid Rahimli</a>
-        <nav aria-label="Main">
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-          <a href={GITHUB} target="_blank" rel="noreferrer">GitHub <External /></a>
-        </nav>
-      </header>
+    <Dialog open={!!p} onOpenChange={(o) => !o && onClose()}>
+      {shown && (
+        <DialogContent>
+          <div className="rounded-t-2xl bg-plate"><img src={img(shown.slug)} alt="" className="mx-auto max-h-[46vh] w-auto" /></div>
+          <div className="p-6 sm:p-8">
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-muted">{shown.category}</p>
+            <DialogTitle className="mt-2 text-2xl font-medium tracking-tight">{shown.title}</DialogTitle>
+            <DialogDescription className="mt-3 leading-relaxed text-muted">{shown.summary}</DialogDescription>
 
-      <main id="top">
-        <section className="hero">
-          <h1>Farid Rahimli</h1>
-          <div className="hero__intro">
-            <p className="hero__lead">
-              I build machine learning that holds up outside the notebook: crop-disease detection, wildlife camera traps
-              and serverless pipelines on AWS, each with code and an honest benchmark.
-            </p>
-            <div>
-              <p className="hero__role">Data scientist and ML engineer. MSc student in AI, Data Science and Digital Business.</p>
-              <div className="cta">
-                <a className="btn btn--dark" href="#work">See the work</a>
-                <a className="btn" href={`mailto:${EMAIL}`}>Email me</a>
-              </div>
-            </div>
-          </div>
-          <ProjectMap onPick={pick} />
-        </section>
+            <ul className="mt-6 divide-y divide-line border-y border-line">
+              {shown.results.map((r) => (
+                <li key={r} className="flex items-center gap-3 py-2.5 text-sm">
+                  <span className="size-1.5 shrink-0 rounded-full bg-ink" /> {r}
+                </li>
+              ))}
+            </ul>
 
-        <section id="work" aria-labelledby="work-title">
-          <div className="section-head">
-            <h2 id="work-title">Selected work</h2>
-            <div className="filters" role="group" aria-label="Filter projects by domain">
-              <button type="button" aria-pressed={filter === null} onClick={() => setFilter(null)}>All <span>{projects.length}</span></button>
-              {categories.map((c) => (
-                <button key={c} type="button" aria-pressed={filter === c} onClick={() => setFilter(filter === c ? null : c)}>
-                  <Dot c={c} />{c} <span>{countIn(c)}</span>
-                </button>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {shown.stack.map((s) => (
+                <span key={s} className="rounded-full border border-line px-3 py-1 text-xs text-ink/75">{s}</span>
               ))}
             </div>
-          </div>
-          <p className="sr-only" aria-live="polite">{shownFeatured.length + shownOthers.length} projects shown</p>
 
-          {shownFeatured.length ? (
-            <div className="features">{shownFeatured.map((p) => <FeaturedCard key={p.repo} p={p} flash={flash === p.repo} />)}</div>
-          ) : null}
-
-          {shownOthers.length ? (
-            <div className="more slide">
-              <h3 className="more__title">{shownFeatured.length ? 'More projects' : 'Projects'}</h3>
-              <ul>{shownOthers.map((p) => <Row key={p.repo} p={p} flash={flash === p.repo} />)}</ul>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={shown.repo} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm text-paper transition hover:bg-ink/85">
+                <Github className="size-4" /> View on GitHub
+                <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </a>
+              {shown.demo && (
+                <a href={shown.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm transition hover:border-ink/40">
+                  Live demo <ArrowUpRight className="size-4" />
+                </a>
+              )}
             </div>
-          ) : null}
-        </section>
-
-        <section id="about" className="about" aria-labelledby="about-title">
-          <h2 id="about-title">About</h2>
-          <div>
-            <p>
-              I'm an MSc student in AI, Data Science and Digital Business. I like problems where a model has to earn its
-              place: choosing between ResNet-50 and MobileNetV2 for a battery-powered camera, or adding a confidence gate so
-              weak predictions never reach production.
-            </p>
-            <p className="about__tools">Tools I reach for most: Python, PyTorch, TensorFlow, scikit-learn, XGBoost, AWS SageMaker and React.</p>
           </div>
-        </section>
+        </DialogContent>
+      )}
+    </Dialog>
+  )
+}
 
-        <section id="contact" className="contact" aria-labelledby="contact-title">
-          <h2 id="contact-title">Get in touch</h2>
-          <a className="contact__email" href={`mailto:${EMAIL}`}>{EMAIL}</a>
-          <div className="cta">
-            <CopyEmail />
-            <a className="btn" href={GITHUB} target="_blank" rel="noreferrer">github.com/EFaridRahimli <External /></a>
-          </div>
-        </section>
-      </main>
+const TOOLKIT = [
+  ['Modelling', 'PyTorch, TensorFlow / Keras, scikit-learn, XGBoost, AutoGluon'],
+  ['Vision', 'YOLOv8, ResNet, MobileNet, transfer learning'],
+  ['MLOps', 'AWS SageMaker, Lambda, Step Functions, S3, Model Monitor'],
+  ['Data', 'pandas, NumPy, Matplotlib, Seaborn'],
+]
 
-      <footer className="footer">
-        <span>© {YEAR} Farid Rahimli</span>
-        <a href="#top">Back to top <Up /></a>
-      </footer>
-    </>
+function About() {
+  return (
+    <section id="about" className="py-16">
+      <SectionHead title="About" />
+      <div className="grid gap-12 md:grid-cols-2">
+        <Reveal>
+          <p className="text-xl leading-relaxed tracking-tight">
+            I'm Farid, an AI / ML engineer who likes taking a problem from raw data to a model that actually ships.
+          </p>
+          <p className="mt-5 leading-relaxed text-muted">
+            My work covers computer vision for agriculture and wildlife conservation, classification and forecasting on
+            tabular data, NLP, and serverless ML pipelines on AWS. I care about honest evaluation, the trade-off between
+            accuracy and cost, and systems that keep working after the notebook is closed.
+          </p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <dl className="divide-y divide-line border-y border-line">
+            {TOOLKIT.map(([k, v]) => (
+              <div key={k} className="grid grid-cols-[7rem_1fr] gap-4 py-4 text-sm">
+                <dt className="font-medium">{k}</dt>
+                <dd className="text-muted">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+function Contact() {
+  return (
+    <section id="contact" className="py-20">
+      <Reveal className="relative overflow-hidden rounded-3xl border border-line bg-card px-6 py-14 text-center sm:px-12">
+        <p className="text-[11px] font-medium uppercase tracking-[0.32em] text-muted">Contact</p>
+        <h2 className="mx-auto mt-4 max-w-xl text-[clamp(1.8rem,3.5vw,2.6rem)] font-medium leading-tight tracking-[-0.02em]">
+          Have a problem worth modelling? Let's talk.
+        </h2>
+        <a href={GITHUB} target="_blank" rel="noreferrer" className="group mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm text-paper transition hover:bg-ink/85">
+          <Github className="size-4" /> github.com/EFaridRahimli
+          <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </a>
+      </Reveal>
+    </section>
+  )
+}
+
+function Github({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+      <path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z" />
+    </svg>
   )
 }
