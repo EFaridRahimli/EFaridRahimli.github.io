@@ -191,6 +191,8 @@ A text button, 13px uppercase, 0.12em tracking, Graphite, 12px vertical padding;
 ### Illustration Plate
 Traced SVG line art in paper white at full column width. An optional data label is live amber text, 12px (13px on the project plate), tabular, absolutely placed beside the detail it names.
 
+Each drawing is also inlined as six parts (`<g class="part">`, produced by `scripts/split-illos.mjs` from the traced file: contours regrouped by even-odd nesting, then k-means clustered by position). An exploded view is tied to page scroll with `animation-timeline: scroll(root)` over the first 420px: each part drifts 34–55 drawing units outward from the drawing's centre and turns 2–4 degrees; scrolling back up reassembles it exactly. No motion under reduced motion or where scroll timelines are unsupported (the drawing simply stays assembled). The hidden `<img>` of the same file keeps sizing and particle sampling.
+
 ### Particle Transition (signature)
 On view change: sample visible text and images into points (every 3px, cap 9000; every 4px, cap 3800 under 640px), hide the DOM, render the next view invisibly, sample it, pair left to right, and tween. Points disperse 40-190px (ease-out over the first 32%) then fuse (ease-in-out), staggered left to right. Color runs through six steps from amber to white-hot and back to amber. 1250ms (600ms fuse-only on first load), then the DOM fades in over 220ms and the canvas clears; focus moves to the new `h1`. Reduced motion gets only the 220ms crossfade.
 
