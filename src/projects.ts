@@ -10,6 +10,7 @@ export type Project = {
   stack: string[]
   repo: string
   demo?: string
+  coursework?: 'Coursework' | 'Capstone'
 }
 
 const gh = (name: string) => `https://github.com/EFaridRahimli/${name}`
@@ -25,6 +26,7 @@ export const projects: Project[] = [
     results: ['mAP@0.5 of 0.957 on 1,051 test images', 'mAP@0.5:0.95 of 0.840 vs 0.688 for YOLOv5s', '~2–6 ms inference per image'],
     stack: ['YOLOv8', 'YOLOv5', 'PyTorch'],
     repo: gh('Capstone'),
+    coursework: 'Capstone',
   },
   {
     slug: '02-serengeti-camera-trap',
@@ -36,6 +38,7 @@ export const projects: Project[] = [
     results: ['ResNet-50: 81.09% validation accuracy', 'MobileNetV2: fastest at 5.23 ms / image', 'Accuracy vs latency trade-off study'],
     stack: ['CNNs', 'ResNet-50', 'MobileNetV2', 'VGG-19'],
     repo: gh('M599_subsmission_serengeti_camera_trap_benchmarking'),
+    coursework: 'Coursework',
   },
   {
     slug: '03-grape-leaf-classification',
@@ -70,6 +73,7 @@ export const projects: Project[] = [
     results: ['Tuned XGBoost: 86.6% accuracy', 'Beat a Keras MLP on this tabular problem'],
     stack: ['XGBoost', 'Keras', 'scikit-learn'],
     repo: gh('M516-Submission'),
+    coursework: 'Coursework',
   },
   {
     slug: '06-bike-sharing-demand',
@@ -81,6 +85,7 @@ export const projects: Project[] = [
     results: ['Kaggle score improved from 1.864 to 0.421'],
     stack: ['AutoGluon', 'pandas', 'Kaggle'],
     repo: gh('bike_sharing_demand'),
+    coursework: 'Coursework',
   },
   {
     slug: '07-hotel-cancellation',
@@ -114,6 +119,7 @@ export const projects: Project[] = [
     results: ['Low-confidence predictions filtered at 0.67', 'SageMaker endpoint + Model Monitor'],
     stack: ['SageMaker', 'Lambda', 'Step Functions'],
     repo: gh('SconeUnlimitedSubmission'),
+    coursework: 'Coursework',
   },
   {
     slug: '10-dog-breed-classifier',
@@ -125,6 +131,7 @@ export const projects: Project[] = [
     results: ['Hyperparameter search over learning rate and batch size', 'Deployed as a live SageMaker endpoint'],
     stack: ['PyTorch', 'SageMaker', 'S3'],
     repo: gh('DeepLearningUdacity'),
+    coursework: 'Coursework',
   },
   {
     slug: '11-car-dealership-eda',

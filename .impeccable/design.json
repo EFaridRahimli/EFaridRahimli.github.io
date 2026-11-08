@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-08T00:00:00Z",
+  "title": "Design System: Farid Rahimli",
+  "extensions": {
+    "colorMeta": {
+      "accent": { "role": "primary", "displayName": "Signal Ultramarine", "canonical": "#1f3bff", "tonalRamp": ["oklch(18% 0.08 266)", "oklch(28% 0.15 266)", "oklch(38% 0.22 266)", "oklch(47% 0.28 266)", "oklch(58% 0.22 266)", "oklch(70% 0.15 266)", "oklch(82% 0.08 266)", "oklch(94% 0.03 266)"] },
+      "ground": { "role": "neutral", "displayName": "Cool Paper", "canonical": "#edeeef", "tonalRamp": ["oklch(18% 0.003 250)", "oklch(30% 0.003 250)", "oklch(42% 0.004 250)", "oklch(55% 0.004 250)", "oklch(67% 0.004 250)", "oklch(79% 0.003 250)", "oklch(89% 0.003 250)", "oklch(94.8% 0.002 250)"] },
+      "ink": { "role": "neutral", "displayName": "Lamp Black", "canonical": "#111214", "tonalRamp": ["oklch(17% 0.004 265)", "oklch(26% 0.005 265)", "oklch(36% 0.006 265)", "oklch(48% 0.006 265)", "oklch(60% 0.005 265)", "oklch(72% 0.004 265)", "oklch(84% 0.003 265)", "oklch(95% 0.002 265)"] },
+      "muted": { "role": "neutral", "displayName": "Graphite", "canonical": "#55585f", "tonalRamp": ["oklch(18% 0.008 265)", "oklch(28% 0.01 265)", "oklch(38% 0.012 265)", "oklch(45% 0.013 265)", "oklch(58% 0.011 265)", "oklch(70% 0.008 265)", "oklch(83% 0.005 265)", "oklch(95% 0.002 265)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "View titles and project titles; extra-condensed 900 uppercase, fitted to the full measure by measurement on index, Projects and About." },
+      "headline": { "displayName": "Headline", "purpose": "Project list titles, the Projects (11) action, previous/next titles; extra-condensed 700 uppercase." },
+      "title": { "displayName": "Title", "purpose": "The one headline result on a project page, tabular." },
+      "lead": { "displayName": "Lead", "purpose": "The single sentence under the name on the index." },
+      "body": { "displayName": "Body", "purpose": "Summaries, results and About prose, max 60ch." },
+      "label": { "displayName": "Label", "purpose": "Header links, metadata, section labels; usually Graphite." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "link-color", "value": "color 150ms ease-out", "purpose": "Link hover, focus and current-page color change." },
+      { "name": "particle-transition", "value": "1250ms; disperse ease-out cubic over first 32%, fuse ease-in-out cubic; left-to-right stagger up to 24%", "purpose": "View change: text and drawings dissolve to particles and re-form; ink to ultramarine and back in flight." },
+      { "name": "particle-intro", "value": "600ms fuse only", "purpose": "First load: particles fuse into the first view." },
+      { "name": "content-fade", "value": "opacity 0 to 1, 220ms ease-out", "purpose": "Real DOM text fades in over settled particles; also the whole transition under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "header",
+      "description": "Fixed ground-colored header: name left, three text links right; accent marks hover, focus and the current page.",
+      "html": "<header class=\"ds-header\"><a href=\"#\" class=\"ds-link ds-name\">Farid Rahimli</a><nav class=\"ds-nav\"><a href=\"#\" class=\"ds-link\" aria-current=\"page\">Projects</a><a href=\"#\" class=\"ds-link\">About</a><a href=\"#\" class=\"ds-link\">Email</a></nav></header>",
+      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; background: #edeeef; color: #111214; padding: 12px clamp(20px, 3vw, 48px); font-family: Archivo, ui-sans-serif, system-ui, sans-serif; font-size: 14px; } .ds-nav { display: flex; gap: 16px; } .ds-name { font-weight: 600; } .ds-link { color: inherit; text-decoration: none; padding: 12px 8px; transition: color 0.15s ease-out; } .ds-link:hover, .ds-link[aria-current='page'] { color: #1f3bff; } .ds-link:focus-visible { outline: 2px solid #1f3bff; outline-offset: 3px; border-radius: 2px; }"
+    },
+    {
+      "name": "Display Link",
+      "kind": "button",
+      "refersTo": "display-link",
+      "description": "The primary action: a link set in extra-condensed display type with a trailing arrow. No filled buttons exist.",
+      "html": "<a href=\"#\" class=\"ds-display-link\">Projects <span class=\"ds-tnum\">(11)</span> <svg width=\"0.9em\" height=\"0.9em\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
+      "css": ".ds-display-link { font-family: Archivo, ui-sans-serif, system-ui, sans-serif; font-stretch: extra-condensed; font-weight: 700; text-transform: uppercase; line-height: 0.92; font-size: clamp(2.4rem, 5vw, 4.5rem); color: #111214; text-decoration: none; transition: color 0.15s ease-out; } .ds-display-link:hover { color: #1f3bff; } .ds-display-link:focus-visible { outline: 2px solid #1f3bff; outline-offset: 3px; border-radius: 2px; } .ds-tnum { font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Project Row",
+      "kind": "custom",
+      "refersTo": "project-row",
+      "description": "One numbered project: Graphite index, headline title, category over the first result. The whole row links; the title turns ultramarine on hover.",
+      "html": "<a href=\"#\" class=\"ds-row\"><span class=\"ds-row-n\">01</span><span class=\"ds-row-title\">Tomato Leaf Disease Detection</span><span class=\"ds-row-meta\">Vision · Capstone<span class=\"ds-row-result\">mAP@0.5 of 0.957 on 1,051 test images</span></span></a>",
+      "css": ".ds-row { display: grid; grid-template-columns: 3rem 1fr 16rem; align-items: baseline; column-gap: 16px; padding: 12px 0; color: #111214; text-decoration: none; font-family: Archivo, ui-sans-serif, system-ui, sans-serif; } .ds-row-n { font-size: 14px; font-variant-numeric: tabular-nums; color: #55585f; } .ds-row-title { font-stretch: extra-condensed; font-weight: 700; text-transform: uppercase; line-height: 0.92; font-size: clamp(1.9rem, 4.6vw, 4.6rem); transition: color 0.15s; } .ds-row:hover .ds-row-title { color: #1f3bff; } .ds-row:focus-visible { outline: 2px solid #1f3bff; outline-offset: 3px; border-radius: 2px; } .ds-row-meta { font-size: 14px; color: #55585f; text-align: right; } .ds-row-result { display: block; color: #111214; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Display Title",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "View title in extra-condensed 900 capitals; in the build its size is computed so the widest line spans the full measure.",
+      "html": "<h1 class=\"ds-display\"><span>Farid</span><span>Rahimli</span></h1>",
+      "css": ".ds-display { margin: 0; font-family: Archivo, ui-sans-serif, system-ui, sans-serif; font-stretch: extra-condensed; font-weight: 900; text-transform: uppercase; line-height: 0.84; letter-spacing: -0.005em; font-size: clamp(3.2rem, 9.5vw, 10rem); color: #111214; } .ds-display span { display: block; }"
+    },
+    {
+      "name": "Metadata Line",
+      "kind": "chip",
+      "refersTo": "label",
+      "description": "Back link, position and category on a project page: 14px Graphite text, no chips or pills.",
+      "html": "<p class=\"ds-meta\"><a href=\"#\" class=\"ds-meta-link\">← Projects</a><span class=\"ds-tnum\">01 / 11</span><span>Vision · Capstone</span></p>",
+      "css": ".ds-meta { display: flex; gap: 12px; font-family: Archivo, ui-sans-serif, system-ui, sans-serif; font-size: 14px; color: #55585f; } .ds-meta-link { color: #111214; text-decoration: none; transition: color 0.15s ease-out; } .ds-meta-link:hover { color: #1f3bff; } .ds-meta-link:focus-visible { outline: 2px solid #1f3bff; outline-offset: 3px; border-radius: 2px; } .ds-tnum { font-variant-numeric: tabular-nums; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Ink on a Still Ground",
+    "overview": "The type is the interface. Every view is a handful of enormous words in one family, Archivo, set on a 12-column grid over a cool white ground that never moves. The width axis carries the voice: extra-condensed heavy capitals for anything that names a place or a project, normal-width text for everything you read. There are no surfaces to sit content on: no cards, no panels, no shadows, no rules. Hierarchy comes from size and width alone, and the jump between them is deliberately violent.\n\nMotion has one job and one form. Changing view samples the rendered words and drawings into ink particles, scatters them, and re-forms them as the next view; the particles shift to ultramarine in flight and settle back to ink before the real DOM text fades in on top. The ground stays still throughout. Reduced motion gets a 220ms opacity crossfade and nothing else.\n\nImagery is traced line art: black strokes multiplied onto the ground, with any data label set as live text beside the detail it names.",
+    "keyCharacteristics": [
+      "One family, three voices by width and weight; tabular figures on every number.",
+      "Display lines fitted to the full measure by measurement, not by a guessed size.",
+      "Four colors; the accent appears only as state and in flight.",
+      "Flat: no elevation, no borders, no containers.",
+      "One signature motion: particle dissolve and re-form between views."
+    ],
+    "rules": [
+      { "name": "The Accent Is a State Rule", "body": "Ultramarine appears only for hover, focus, current page, selection, and particles in flight. If a screen at rest shows ultramarine anywhere except the current-page link, it is wrong.", "section": "colors" },
+      { "name": "The Still Ground Rule", "body": "The ground color never changes, animates, or carries an image. Only ink moves.", "section": "colors" },
+      { "name": "The Width Carries the Voice Rule", "body": "Emphasis is made by width and weight within Archivo, never by a second family, italics, or color.", "section": "typography" },
+      { "name": "The Every Number Is Tabular Rule", "body": "Metrics, counts, indices, and data labels set with `tabular-nums`.", "section": "typography" },
+      { "name": "The Fit Rule", "body": "A view title is sized to the measure by measuring the rendered line, so its longest line touches both gutters. Never pick a display size by eye for a full-measure title.", "section": "typography" },
+      { "name": "The Nothing to Sit On Rule", "body": "Content sits directly on the ground. No cards, panels, chips, or dividers; grouping is done with grid position and spacing.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** set every view title in Display and fit it to the measure by measurement.",
+      "**Do** keep ultramarine to hover, focus, current page, selection, and particles in flight.",
+      "**Do** use tabular figures for every metric, count, and index.",
+      "**Do** give every number a real source; data labels on drawings are live text, never baked into the image.",
+      "**Do** give reduced-motion users the 220ms crossfade and keep the content fully readable without the particle layer."
+    ],
+    "donts": [
+      "**Don't** add a second typeface; contrast comes from Archivo's width and weight.",
+      "**Don't** put content in cards, panels, or bordered boxes, or add shadows.",
+      "**Don't** animate the ground or add scroll-triggered reveals; the only motion is the view transition and color state.",
+      "**Don't** fill areas with the accent or use it as decoration.",
+      "**Don't** add filled buttons; actions are type."
+    ]
+  }
+}
