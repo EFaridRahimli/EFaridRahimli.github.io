@@ -28,6 +28,7 @@ Static site on GitHub Pages (https://efaridrahimli.github.io), built with React,
 - 11 public projects in `src/projects.ts`; Tomato is the capstone, five others are coursework and are tagged so.
 - Contact: email erahimlif@gmail.com and GitHub. No LinkedIn and no CV link (user's choice).
 - Positioning is ML engineer only; no game-development, RAG or FastAPI project claims.
+- FastAPI and RAG stay in the About toolkit as skills, without a public project behind them (user confirmed, 2026-11-08).
 
 ## Brand Commitments
 
