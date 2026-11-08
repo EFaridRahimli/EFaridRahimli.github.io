@@ -138,5 +138,3 @@ export const projects: Project[] = [
     repo: gh('Car_Dealership_EDA'),
   },
 ]
-
-export const img = (slug: string) => `${import.meta.env.BASE_URL}projects/${slug}.webp`
