@@ -1,46 +1,57 @@
 ---
 name: Farid Rahimli
-description: One-page ML portfolio where the type is the interface and views dissolve into ink particles.
+description: One-page ML portfolio as a trading-floor ticker board; views dissolve into amber phosphor particles.
 colors:
-  ground: "#edeeef"
-  ink: "#111214"
-  muted: "#55585f"
-  accent: "#1f3bff"
+  ground: "#0b0b0b"
+  ink: "#e8e6e1"
+  muted: "#8d8a84"
+  line: "#262624"
+  accent: "#ffa028"
+  up: "#3ddc84"
 typography:
   display:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "'Big Shoulders Display', 'Arial Narrow', sans-serif"
     fontSize: "clamp(3.2rem, 9.5vw, 10rem)"
     fontWeight: 900
-    lineHeight: 0.84
-    letterSpacing: "-0.005em"
-    fontVariation: "'wdth' 62.5"
+    lineHeight: 0.86
   headline:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "'Big Shoulders Display', 'Arial Narrow', sans-serif"
     fontSize: "clamp(1.9rem, 4.6vw, 4.6rem)"
-    fontWeight: 700
+    fontWeight: 800
     lineHeight: 0.92
-    fontVariation: "'wdth' 62.5"
   title:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "'Martian Mono', ui-monospace, monospace"
     fontSize: "clamp(1.5rem, 2.2vw, 2rem)"
     fontWeight: 600
     lineHeight: 1.25
     fontFeature: "'tnum'"
+    fontVariation: "'wdth' 87.5"
   lead:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.2rem, 1.7vw, 1.6rem)"
+    fontFamily: "'Martian Mono', ui-monospace, monospace"
+    fontSize: "clamp(1.75rem, 3.4vw, 3.25rem)"
+    fontWeight: 500
+    lineHeight: 1.1
+    fontVariation: "'wdth' 87.5"
+  quote:
+    fontFamily: "'Martian Mono', ui-monospace, monospace"
+    fontSize: "clamp(0.95rem, 1.6vw, 1.35rem)"
     fontWeight: 400
-    lineHeight: 1.375
+    fontFeature: "'tnum'"
+    fontVariation: "'wdth' 87.5"
   body:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "'Martian Mono', ui-monospace, monospace"
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.625
+    fontVariation: "'wdth' 87.5"
   label:
-    fontFamily: "Archivo, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "'Martian Mono', ui-monospace, monospace"
     fontSize: "14px"
     fontWeight: 400
     lineHeight: 1.43
+    fontVariation: "'wdth' 87.5"
+rounded:
+  focus: "2px"
 spacing:
   gutter: "clamp(20px, 3vw, 48px)"
 components:
@@ -51,16 +62,23 @@ components:
   nav-link-current:
     textColor: "{colors.accent}"
   display-link:
-    textColor: "{colors.ink}"
+    textColor: "{colors.accent}"
     typography: "{typography.headline}"
   display-link-hover:
-    textColor: "{colors.accent}"
-  project-row:
     textColor: "{colors.ink}"
-    typography: "{typography.headline}"
-    padding: "12px 0"
-  project-row-hover:
+  ticker-symbol:
     textColor: "{colors.accent}"
+    typography: "{typography.quote}"
+  ticker-delta:
+    textColor: "{colors.up}"
+    typography: "{typography.quote}"
+  project-row:
+    textColor: "{colors.accent}"
+    typography: "{typography.headline}"
+    padding: "16px 0"
+  pause-control:
+    textColor: "{colors.muted}"
+    padding: "12px 0"
   header:
     backgroundColor: "{colors.ground}"
     typography: "{typography.label}"
@@ -71,107 +89,124 @@ components:
 
 ## Overview
 
-**Creative North Star: "Ink on a Still Ground"**
+**Creative North Star: "The Trading Floor After Hours"**
 
-The type is the interface. Every view is a handful of enormous words in one family, Archivo, set on a 12-column grid over a cool white ground that never moves. The width axis carries the voice: extra-condensed heavy capitals for anything that names a place or a project, normal-width text for everything you read. There are no surfaces to sit content on: no cards, no panels, no shadows, no rules. Hierarchy comes from size and width alone, and the jump between them is deliberately violent.
+A quote board for one engineer's work, lit in terminal amber on a black that never moves. The landing view is a perpetual ticker: the name rolls past in giant condensed signage capitals, a symbol tape quotes each project's real headline figure, and the project titles roll underneath as links. Every other view is a few enormous amber words over paper-white reading text set in a semi-condensed monospace.
 
-Motion has one job and one form. Changing view samples the rendered words and drawings into ink particles, scatters them, and re-forms them as the next view; the particles shift to ultramarine in flight and settle back to ink before the real DOM text fades in on top. The ground stays still throughout. Reduced motion gets a 220ms opacity crossfade and nothing else.
+Hierarchy is two voices and nothing else: Chicago-signage display caps for anything that names a person, a place or a project, and tabular monospace for everything you read or count. Structure comes from hairline row rules, the way a board separates its tapes; there are no cards, panels, shadows or glass.
 
-Imagery is traced line art: black strokes multiplied onto the ground, with any data label set as live text beside the detail it names.
+Motion has two forms. The tapes roll forever (user-requested) and stop on hover, focus, a visible Pause control, and under reduced motion. Changing view samples the rendered words and drawings into amber phosphor particles that run white-hot in flight and re-form as the next view over the still ground. Imagery is traced line art in paper white with amber live-text data labels.
 
 **Key Characteristics:**
-- One family, three voices by width and weight; tabular figures on every number.
-- Display lines fitted to the full measure by measurement, not by a guessed size.
-- Four colors; the accent appears only as state and in flight.
-- Flat: no elevation, no borders, no containers.
-- One signature motion: particle dissolve and re-form between views.
+- Black ground, amber display, paper-white reading text; green only for a measured change.
+- Two families: Big Shoulders Display caps for names, Martian Mono (semi-condensed, tabular) for text and figures.
+- Ticker grammar: symbol, quote, delta, on hairline-ruled tapes.
+- Flat: depth is only the transient particle canvas.
+- Two motions: the pausable ticker and the particle dissolve between views.
 
 ## Colors
 
-A near-monochrome of cool paper and near-black ink, with one saturated ultramarine held back for state.
+Terminal phosphor: one hot amber and one rare signal green on a near-black ground, with warm paper white for reading.
 
 ### Primary
-- **Signal Ultramarine** (accent): the only color. It marks hover, keyboard focus (2px outline, 3px offset), the current page in the header, text selection, and particles in flight. It never fills an area at rest and never decorates.
+- **Terminal Amber** (accent): all display type at rest (view titles, ticker name, project titles, the Projects action), ticker symbols, illustration data labels, hover on text links, the current page in the header, the focus outline (2px, 3px offset), text selection (amber fill, ground text), and settled particles.
+
+### Secondary
+- **Signal Green** (up): the delta after a quote, only where the project measured a real change against a baseline (e.g. a gain over a prior model, a score reduction). Never decorative, never a status color for anything else.
 
 ### Neutral
-- **Cool Paper** (ground): the page, the fixed header behind its links, and the `theme-color`. It is the still ground the particles cross.
-- **Lamp Black** (ink): all display type, body text, numbers, and the line art. Particles settle to it.
-- **Graphite** (muted): secondary metadata only: list indices, category and coursework tags, stack lists, section labels, "Previous / Next" captions. About 6:1 on the ground.
+- **Terminal Black** (ground): the page, the fixed header, `theme-color`, and text on amber selection.
+- **Paper White** (ink): reading text, quotes, metrics, nav links at rest, the line art, and the hover color of amber display links.
+- **Graphite** (muted): metadata only: category and coursework tags, stack lists, section labels, Previous/Next captions, the ticker separators, the Pause control.
+- **Hairline** (line): 1px top rules between ticker tapes, above the index foot, and between project rows. Also the scrollbar thumb.
 
 ### Named Rules
-**The Accent Is a State Rule.** Ultramarine appears only for hover, focus, current page, selection, and particles in flight. If a screen at rest shows ultramarine anywhere except the current-page link, it is wrong.
+**The Measured Green Rule.** Green appears only on a delta that a project actually measured. No delta, no green; a quote without a baseline stays paper white.
 
-**The Still Ground Rule.** The ground color never changes, animates, or carries an image. Only ink moves.
+**The Amber Inverts on Hover Rule.** Amber display type goes to paper white on hover; paper-white text links go to amber. State is always the swap to the other voice.
+
+**The Still Ground Rule.** The ground never changes, animates or carries an image. Only type, tapes and particles move.
 
 ## Typography
 
-**Display Font:** Archivo (variable, wdth 62..125, wght 100..900), with ui-sans-serif, system-ui fallback
-**Body Font:** Archivo at normal width
-**Label/Mono Font:** none; labels are Archivo with tabular figures
+**Display Font:** Big Shoulders Display (with 'Arial Narrow', sans-serif)
+**Body Font:** Martian Mono at font-stretch 87.5% (with ui-monospace, monospace)
+**Label/Mono Font:** Martian Mono, same settings
 
-**Character:** A single grotesque split into two voices by its width axis. Extra-condensed 900 capitals shout the name and the project titles; the same family at normal width reads quietly underneath.
+**Character:** Condensed signage capitals shout from the board; a semi-condensed terminal mono reads and counts underneath. The pairing is a departures board over a Bloomberg screen.
 
 ### Hierarchy
-- **Display** (900, extra-condensed, uppercase, 0.84 line-height, -0.005em): view titles (name, Projects, About, the email address) and project titles. On index, Projects and About the size is computed so the widest line spans the full measure exactly, capped on the index at 60% of viewport height; project titles use the clamp in the token at max 15ch, balanced.
-- **Headline** (700, extra-condensed, uppercase, 0.92 line-height): project titles in the list, the "Projects (11)" primary action (clamp(2.4rem, 5vw, 4.5rem)), and previous/next titles (clamp(1.6rem, 3vw, 2.75rem)).
-- **Title** (600, tabular): the one result that matters on a project page.
-- **Lead** (400, ~1.2-1.6rem, max 30ch): the single sentence under the name. The About statement uses a larger step (500, clamp(1.75rem, 3.4vw, 3.25rem), 1.1 line-height, max 28ch).
-- **Body** (400, 17px, relaxed): summaries, results, About prose, max 60ch.
-- **Label** (400, 14px): header links, metadata, section labels; usually Graphite.
+- **Display** (900, uppercase, 0.86 line-height, amber): view titles and the project-page title (clamp in token, max 15ch, balanced), the index name tape (min(34vh, 26vw) on phones, min(34vh, 16.5vw) from md), and the About email (lowercase). Projects and About titles and the email are sized by measurement to span the measure.
+- **Headline** (800, uppercase, 0.92, amber): project rows, the title tape (clamp(2.4rem, 10vh, 7rem)), the Projects (11) action (clamp(2.2rem, 4.4vw, 4rem)), Previous/Next titles (clamp(1.6rem, 3vw, 2.75rem)).
+- **Title** (600, tabular, 1.25): the one result that matters on a project page.
+- **Lead** (500, 1.1, max 28ch): the About statement.
+- **Quote** (400, tabular): the symbol tape; symbols bold amber, quote paper white, delta green.
+- **Body** (400, 17px, 1.625, max 60ch): summaries, results, About prose. The index sentence uses the 15px base at the same leading, max 44ch.
+- **Label** (400, 14px): header, metadata, section labels, ticker symbols in rows (bold, amber). The Pause control is 13px uppercase with 0.12em tracking in Graphite.
 
 ### Named Rules
-**The Width Carries the Voice Rule.** Emphasis is made by width and weight within Archivo, never by a second family, italics, or color.
+**The Two Voices Rule.** Big Shoulders for names, Martian Mono for everything read or counted. No third family, no italics.
 
-**The Every Number Is Tabular Rule.** Metrics, counts, indices, and data labels set with `tabular-nums`.
+**The Every Number Is Tabular Rule.** Quotes, deltas, metrics, counts, positions and data labels set with `tabular-nums`.
 
-**The Fit Rule.** A view title is sized to the measure by measuring the rendered line, so its longest line touches both gutters. Never pick a display size by eye for a full-measure title.
+**The Fit Rule.** A full-measure view title is sized by measuring the rendered line so its widest line touches both gutters. Never pick that size by eye.
 
 ## Layout
 
-A single column of views inside a fluid gutter (clamp(20px, 3vw, 48px)) on both sides, with a 12-column grid from `md` (768px) up. Content splits unevenly across it: 6/6 for the index foot (sentence left, action right, bottom-aligned), 1/7/4 for project rows (index, title, metric right-aligned), 6 + 5 offset to column 8 for the project drawing and its text, 5 + 6 offset to column 7 on About. Below `md` everything stacks; project rows keep a 3rem index column.
+A single column of views inside a fluid gutter (clamp(20px, 3vw, 48px)), with a 12-column grid from md (768px). Splits: 6 / 2 / 4 for the index foot (sentence, Pause control, action right-aligned, bottom-aligned); 1 / 7 / 4 for project rows (symbol, title, category over quote, right-aligned) with a 4rem symbol column below md; 6 + 5 from column 8 for the project drawing and its text; 5 + 6 from column 7 on About.
 
-The index view fills the viewport (min-height 100svh) and pins its content to the bottom. Other views start 6rem from the top under the fixed header. Vertical rhythm is generous and stepped: 2.5-3rem between the title and its first content, 5-8rem before closing sections. The header is fixed, ground-colored, 14px, name left and three links right.
+The index fills the viewport (min-height 100svh): tapes run edge to edge (they break out of the gutter), vertically centred, with the foot pinned to the bottom under a hairline. Other views start 6rem from the top under the fixed header. Rhythm is stepped and generous: 1.5-2.5rem from title to first content, 3-4rem to the body grid, 5-8rem before closing sections. Below md everything stacks.
 
 ## Elevation & Depth
 
-Flat. There are no shadows, no borders, no blurs, and no layered surfaces. The only depth is the particle canvas, a fixed, pointer-transparent layer above the content (z 10) and below the header (z 20), present only during a transition and cleared after.
+Flat. No shadows, no blurs, no layered surfaces. Separation is the 1px hairline. The only depth is the particle canvas: fixed, pointer-transparent, aria-hidden, above content (z 10) and below the header (z 20), present only during a transition.
 
 ### Named Rules
-**The Nothing to Sit On Rule.** Content sits directly on the ground. No cards, panels, chips, or dividers; grouping is done with grid position and spacing.
+**The Board Has Rows, Not Boxes Rule.** Group with a top hairline and grid position. No cards, panels, pills or bordered boxes.
 
 ## Shapes
 
-No containers means no corner language. The only radius in the system is 2px on the focus outline. Drawings are unframed line art, `mix-blend-mode: multiply` so their white disappears into the ground. Icons are thin stroked arrows (Lucide, 1.75 stroke, 0.9em) inline with text: left for back/previous, right for forward, up-right for external links.
+No containers, so no corner language; the only radius is 2px on the focus outline. Rules are horizontal 1px hairlines only. Drawings are unframed traced line art (filled paths in paper white on transparent). Icons are thin Lucide arrows (1.75 stroke, 0.9em) inline with text: left for back/previous, right for forward, up-right for external. The ▲ / ▼ in deltas is ticker notation and travels with its figure, in green.
 
 ## Components
 
 ### Navigation
-Header: name (600) left, Projects / About / Email right, 14px, 8px horizontal and 12px vertical padding for a full hit area. No underline at rest; hover and `aria-current="page"` turn the link ultramarine over 150ms ease-out. Project counts as current on a project page. Email is a `mailto:` link in the header on every view.
+Fixed ground-colored header, 14px: name (600) left, Projects / About / Email right, 8px horizontal and 12px vertical padding per link. Paper white at rest; hover and `aria-current="page"` go amber over 150ms ease-out. A project page marks Projects as current. Email is a `mailto:` link on every view.
+
+### Ticker Tape (signature)
+A full-bleed row with a hairline above: the sequence rendered twice, sliding by half its width on an infinite linear loop (name 38s left, symbols 60s right, titles 90s left). The second copy is `inert` and `aria-hidden` so links tab once; decorative tapes are `aria-hidden` and the name lives in a screen-reader-only `h1`. Items are separated by a Graphite slash. Deliberate exception to the no-perpetual-motion default, user-requested and WCAG 2.2.2 compliant: tapes pause on hover and focus-within, a visible Pause ticker / Resume ticker button (`aria-pressed`) stops all three, and under `prefers-reduced-motion` they do not animate and scroll horizontally instead.
+
+### Quote Line
+Symbol (bold amber), quote (paper white), optional delta (green, with ▲ or ▼), then category in Graphite. Appears in the symbol tape, under each project row's category, and under the project title.
 
 ### Display Link
-The primary action and the About email address are display-type links, not buttons: ink at rest, ultramarine on hover and focus, with a trailing arrow. There are no filled buttons in the system.
+Actions are amber display type with a trailing arrow (Projects (11), Previous/Next titles, the About email). Hover goes to paper white. There are no filled buttons.
 
 ### Project Row
-Numbered list row: two-digit Graphite index, the title in headline type, and on the right the category (plus coursework tag) in Graphite over the first result in ink, tabular. The whole row is the link; the title turns ultramarine on hover.
+Hairline above; amber symbol, headline title, Graphite category over the paper-white quote and green delta, tabular. The whole row is the link; the title goes paper white on hover.
+
+### Pause Control
+A text button, 13px uppercase, 0.12em tracking, Graphite, 12px vertical padding; amber on hover and focus. Label states the action it performs.
 
 ### Illustration Plate
-Traced SVG line art at full column width, multiplied onto the ground. An optional data label (a real metric or value) is absolutely positioned as live text beside the detail it names, 12px (13px on the project plate), tabular.
+Traced SVG line art in paper white at full column width. An optional data label is live amber text, 12px (13px on the project plate), tabular, absolutely placed beside the detail it names.
 
 ### Particle Transition (signature)
-On view change: sample the visible text and images of the current view into points (every 3px, cap 9000; every 4px, cap 3800 under 640px), hide the DOM, render the next view invisibly, sample it, then pair and tween. Each point disperses outward (40-190px, eased out over the first 32%) then fuses to its target (ease-in-out), staggered left to right. Color tracks progress through six steps from ink to ultramarine and back. Duration 1250ms (600ms on first load, which only fuses in). Then the DOM fades in over 220ms and the canvas clears. The canvas is `aria-hidden`; the real text is always in the DOM; focus moves to the new `h1`.
+On view change: sample visible text and images into points (every 3px, cap 9000; every 4px, cap 3800 under 640px), hide the DOM, render the next view invisibly, sample it, pair left to right, and tween. Points disperse 40-190px (ease-out over the first 32%) then fuse (ease-in-out), staggered left to right. Color runs through six steps from amber to white-hot and back to amber. 1250ms (600ms fuse-only on first load), then the DOM fades in over 220ms and the canvas clears; focus moves to the new `h1`. Reduced motion gets only the 220ms crossfade.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** set every view title in Display and fit it to the measure by measurement.
-- **Do** keep ultramarine to hover, focus, current page, selection, and particles in flight.
-- **Do** use tabular figures for every metric, count, and index.
-- **Do** give every number a real source; data labels on drawings are live text, never baked into the image.
-- **Do** give reduced-motion users the 220ms crossfade and keep the content fully readable without the particle layer.
+- **Do** set names, view titles and project titles in amber Big Shoulders caps, and fit full-measure titles by measurement.
+- **Do** set every figure in tabular Martian Mono, and quote each project as symbol, figure and (only if measured) delta.
+- **Do** keep green to real measured deltas.
+- **Do** separate rows and tapes with a single 1px hairline.
+- **Do** ship any perpetual motion with pause on hover and focus, a visible Pause control with `aria-pressed`, and no animation under reduced motion.
+- **Do** keep data labels on drawings as live text, never baked into the image.
 
 ### Don't:
-- **Don't** add a second typeface; contrast comes from Archivo's width and weight.
-- **Don't** put content in cards, panels, or bordered boxes, or add shadows.
-- **Don't** animate the ground or add scroll-triggered reveals; the only motion is the view transition and color state.
-- **Don't** fill areas with the accent or use it as decoration.
+- **Don't** add a third typeface or italics.
+- **Don't** put content in cards, panels, pills or bordered boxes, or add shadows or glass.
+- **Don't** use green for anything but a measured change, or invent a delta to fill a quote.
+- **Don't** animate the ground or add scroll-triggered reveals; motion is the ticker, the view transition and color state.
 - **Don't** add filled buttons; actions are type.

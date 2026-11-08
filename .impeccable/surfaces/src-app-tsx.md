@@ -12,16 +12,16 @@ Audience and job: ML hiring managers judging work in under a minute. Proof: the 
 
 ## Direction contract
 
-THESIS: The type is the interface. Each view is a few enormous words set on a strict grid, and moving between views dissolves those words and drawings into ink particles that re-form as the next view over a still ground. Refuses the category default of a hero over a card grid with scroll reveals.
+THESIS: A trading-floor board for one engineer's work. The landing view is a perpetual ticker: the name rolls past in giant amber condensed caps, a symbol tape quotes each project's real figure, and the project titles roll as links. Every other view is a few enormous words, and moving between views dissolves words and drawings into amber phosphor particles that re-form as the next view over a still black ground. Refuses the hero-over-card-grid default.
 
-OWN-WORLD: Cool white ground (#EDEEEF), near-black ink (#111214), one ultramarine (#1F3BFF) used only for particles in flight, focus, hover and the current page. One family, Archivo, whose width axis carries the voice: extra-condensed heavy for display, normal width for text, tabular figures for every number. No cards, no shadows, no glass, no rules except one hairline grid line.
+OWN-WORLD: Terminal black ground (#0B0B0B), amber (#FFA028) for all display type, ticker symbols, particles, hover, focus and the current page; paper white (#E8E6E1) for reading text; graphite (#8D8A84) for metadata; signal green (#3DDC84) only for a real measured improvement. Big Shoulders Display (Chicago signage) black caps for display; Martian Mono semi-condensed for text and figures, tabular. Hairline row rules (#262624) separate ticker tapes; no cards, shadows or glass. Drawings in paper white.
 
 STORY: The visitor reads a name and a job in one glance, opens Projects, sees eleven titles with their metric, opens one, reads the number that matters, and emails.
 
-FIRST VIEWPORT: "FARID / RAHIMLI" in extra-condensed 900 on two lines, the longer line spanning the full measure where the viewport height allows, otherwise capped at 60% of the viewport height so the sentence and action stay in the first viewport (at 1440x900 a full-measure two-line name would be ~80% of the height); under it, left, one sentence of what he builds; right, the single primary action "PROJECTS (11) →" in display type. Email always one click away in the header, top-right. (Amended: no numbered nav; section numbers would be decoration.)
+FIRST VIEWPORT: Three ticker tapes stacked across the full width between hairlines: the name and role in amber display caps at up to a third of the viewport height rolling left (desktop: sized so the whole name fits the width; phones: larger than the title tape and cropped as it rolls, the header carries the full name); the symbol tape (TMTO, SRGT ...) with quotes rolling right; the project titles as links rolling left. Below a hairline: the one-sentence role (left), a visible Pause ticker control, and the primary action PROJECTS (11) → (right). Tapes pause on hover, focus and the control, and stand still under reduced motion (WCAG 2.2.2). Email in the header.
 
-FORM: user-pinned (maximum minimalism, huge type, particle dissolve between views). The direction roll was skipped because the user pinned the direction; no seed exists. seed: none (skipped: user-pinned direction)
+FORM: user-pinned (maximum minimalism, huge type, particle dissolve between views; 2026-11-09: perpetual horizontal ticker landing like a trading floor, Big Shoulders + Martian Mono, terminal amber). The direction roll was skipped because the user pinned the direction; no seed exists. seed: none (skipped: user-pinned direction)
 
-SIGNATURE: particle dissolve/re-form between views (canvas sampling of the rendered DOM text and drawings), particles tinted ultramarine in flight, settling to ink; reduced motion gets a crossfade.
+SIGNATURE: the ticker board, and the particle dissolve/re-form between views (canvas sampling of the rendered DOM text and drawings), amber settling, white-hot in flight; reduced motion gets a crossfade and still tapes.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

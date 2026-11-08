@@ -11,6 +11,10 @@ export type Project = {
   repo: string
   demo?: string
   coursework?: 'Coursework' | 'Capstone'
+  // ticker board: a symbol, the headline figure, and a change only where the project measured one
+  ticker: string
+  quote: string
+  delta?: string
 }
 
 const gh = (name: string) => `https://github.com/EFaridRahimli/${name}`
@@ -18,6 +22,9 @@ const gh = (name: string) => `https://github.com/EFaridRahimli/${name}`
 export const projects: Project[] = [
   {
     slug: '01-tomato-leaf-detection',
+    ticker: 'TMTO',
+    quote: 'mAP50-95 0.840',
+    delta: '▲ 0.152 vs YOLOv5s',
     title: 'Tomato Leaf Disease Detection',
     tagline: 'YOLOv8 detection of tomato leaf disease in field images.',
     category: 'Vision',
@@ -30,6 +37,8 @@ export const projects: Project[] = [
   },
   {
     slug: '02-serengeti-camera-trap',
+    ticker: 'SRGT',
+    quote: 'ACC 81.1%',
     title: 'Serengeti Camera-Trap Benchmark',
     tagline: 'Wildlife classification from camera-trap images.',
     category: 'Vision',
@@ -42,6 +51,8 @@ export const projects: Project[] = [
   },
   {
     slug: '03-grape-leaf-classification',
+    ticker: 'GRPE',
+    quote: 'ACC 98.5%',
     title: 'Grape Leaf Disease Classification',
     tagline: 'CNN flagging grape-leaf disease early.',
     category: 'Vision',
@@ -53,6 +64,8 @@ export const projects: Project[] = [
   },
   {
     slug: '04-keysync',
+    ticker: 'KSYN',
+    quote: 'LIVE APP',
     title: 'KeySync',
     tagline: 'Find Spotify tracks that mix harmonically.',
     category: 'Apps',
@@ -65,6 +78,8 @@ export const projects: Project[] = [
   },
   {
     slug: '05-gamma-ray-classification',
+    ticker: 'GAMA',
+    quote: 'ACC 86.6%',
     title: 'Gamma-Ray Signal Classification',
     tagline: 'Separating gamma signals from hadron noise.',
     category: 'Data',
@@ -77,6 +92,9 @@ export const projects: Project[] = [
   },
   {
     slug: '06-bike-sharing-demand',
+    ticker: 'BIKE',
+    quote: 'SCORE 0.421',
+    delta: '▼ 1.443 from 1.864',
     title: 'Bike Sharing Demand Forecast',
     tagline: 'Hourly rental demand with AutoML.',
     category: 'Data',
@@ -89,6 +107,8 @@ export const projects: Project[] = [
   },
   {
     slug: '07-hotel-cancellation',
+    ticker: 'HOTL',
+    quote: 'ACC 89.2%',
     title: 'Hotel Cancellation Prediction',
     tagline: 'Predicting which bookings get cancelled.',
     category: 'Data',
@@ -100,6 +120,8 @@ export const projects: Project[] = [
   },
   {
     slug: '08-movie-review-sentiment',
+    ticker: 'MOVI',
+    quote: 'ACC 88.5%',
     title: 'Movie Review Sentiment',
     tagline: 'Review sentiment for a streaming platform.',
     category: 'NLP',
@@ -111,6 +133,8 @@ export const projects: Project[] = [
   },
   {
     slug: '09-serverless-ml-workflow',
+    ticker: 'SVLS',
+    quote: 'CONF ≥ 0.67',
     title: 'Serverless ML Workflow',
     tagline: 'Event-driven image classification on AWS.',
     category: 'MLOps',
@@ -123,6 +147,8 @@ export const projects: Project[] = [
   },
   {
     slug: '10-dog-breed-classifier',
+    ticker: 'DOGB',
+    quote: 'DEPLOYED',
     title: 'Dog Breed Classifier',
     tagline: 'ResNet-18 fine-tuned and deployed on SageMaker.',
     category: 'MLOps',
@@ -135,6 +161,8 @@ export const projects: Project[] = [
   },
   {
     slug: '11-car-dealership-eda',
+    ticker: 'CARS',
+    quote: 'N 558,837',
     title: 'Car Dealership EDA',
     tagline: 'What to stock, price and where to expand.',
     category: 'Data',

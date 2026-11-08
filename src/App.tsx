@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
+import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { flushSync } from 'react-dom'
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { projects, type Project } from './projects'
@@ -115,7 +115,7 @@ function Header({ route }: { route: Route }) {
 }
 
 /** Display lines sized so the widest line spans the full measure exactly. */
-function Fit({ lines, className = '', maxVh = 0 }: { lines: string[]; className?: string; maxVh?: number }) {
+function Fit({ lines, className = '' }: { lines: string[]; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null)
   const key = lines.join('\n')
   useLayoutEffect(() => {
@@ -123,17 +123,14 @@ function Fit({ lines, className = '', maxVh = 0 }: { lines: string[]; className?
     const fit = () => {
       el.style.fontSize = '100px'
       const widest = Math.max(...[...el.children].map((c) => c.getBoundingClientRect().width))
-      const byWidth = (100 * el.clientWidth) / widest
-      // line-height is 0.84em, so this keeps the block within maxVh of the viewport height
-      const byHeight = maxVh ? (innerHeight * maxVh) / (lines.length * 0.84) : Infinity
-      el.style.fontSize = `${Math.min(byWidth, byHeight)}px`
+      el.style.fontSize = `${(100 * el.clientWidth) / widest}px`
     }
     fit()
     document.fonts.ready.then(fit)
     const ro = new ResizeObserver(fit)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [key, maxVh, lines.length])
+  }, [key])
   return (
     <span ref={ref} className={`block ${className}`}>
       {lines.map((l) => (
@@ -143,35 +140,73 @@ function Fit({ lines, className = '', maxVh = 0 }: { lines: string[]; className?
   )
 }
 
-function useNarrow() {
-  const q = '(max-width: 639px)'
-  const [narrow, setNarrow] = useState(() => matchMedia(q).matches)
-  useEffect(() => {
-    const m = matchMedia(q)
-    const on = () => setNarrow(m.matches)
-    m.addEventListener('change', on)
-    return () => m.removeEventListener('change', on)
-  }, [])
-  return narrow
-}
-
 const Arrow = ({ dir = 'right' }: { dir?: 'right' | 'left' | 'out' }) => {
   const Icon = dir === 'left' ? ArrowLeft : dir === 'out' ? ArrowUpRight : ArrowRight
   return <Icon aria-hidden className="inline size-[0.9em] translate-y-[-0.05em] stroke-[1.75]" />
 }
 
-function Index() {
-  const narrow = useNarrow()
+/** A perpetual ticker row: the sequence twice, sliding by half its width. The copy is inert so links tab once. */
+function Tape({ children, dur, reverse, className = '', decorative }: { children: ReactNode; dur: number; reverse?: boolean; className?: string; decorative?: boolean }) {
   return (
-    <section className="flex min-h-svh flex-col justify-end pb-(--gut) pt-28">
-      <h1 tabIndex={-1} aria-label="Farid Rahimli" className="display outline-none">
-        <Fit lines={['Farid', 'Rahimli']} maxVh={narrow ? 0 : 0.6} />
-      </h1>
-      <div className="mt-8 grid items-end gap-8 md:mt-12 md:grid-cols-12">
-        <p className="text-pretty text-[clamp(1.2rem,1.7vw,1.6rem)] leading-snug md:col-span-6 md:max-w-[30ch]">
+    <div className={`tape border-t border-line ${className}`} aria-hidden={decorative || undefined}>
+      <div className="tape-track" style={{ '--dur': `${dur}s` } as CSSProperties} data-reverse={reverse || undefined}>
+        <div className="tape-seq">{children}</div>
+        <div className="tape-seq" aria-hidden inert>
+          {children}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const Sep = ({ small }: { small?: boolean }) => (
+  <span aria-hidden className={`text-muted ${small ? 'self-center text-[0.45em]' : ''}`}>/</span>
+)
+
+function Index() {
+  const [paused, setPaused] = useState(false)
+  return (
+    <section className={`-mx-(--gut) flex min-h-svh flex-col pt-16 ${paused ? 'is-paused' : ''}`}>
+      <h1 tabIndex={-1} className="sr-only">Farid Rahimli, ML engineer</h1>
+      <div className="flex flex-1 flex-col justify-center">
+        <Tape dur={38} decorative className="display py-[1.5vh] text-[min(34vh,26vw)] md:text-[min(34vh,16.5vw)]">
+          {['Farid Rahimli', 'ML Engineer', 'Farid Rahimli', 'Vision · MLOps'].map((t, k) => (
+            <span key={k} className="flex items-baseline gap-[0.3em]">
+              {t} <Sep small />
+            </span>
+          ))}
+        </Tape>
+        <Tape dur={60} reverse decorative className="py-3 text-[clamp(0.95rem,1.6vw,1.35rem)] tabular-nums">
+          {projects.map((p) => (
+            <span key={p.slug} className="flex items-baseline gap-[0.6em] pr-[1.4em]">
+              <b className="font-bold text-accent">{p.ticker}</b>
+              <span>{p.quote}</span>
+              {p.delta && <span className="text-up">{p.delta}</span>}
+            </span>
+          ))}
+        </Tape>
+        <Tape dur={90} className="display-sm py-[1vh] text-[clamp(2.4rem,10vh,7rem)]">
+          {projects.map((p) => (
+            <span key={p.slug} className="flex items-baseline gap-[0.6em]">
+              <a href={`#/p/${p.slug}`} className="link display-sm">{p.title}</a>
+              <Sep />
+            </span>
+          ))}
+        </Tape>
+      </div>
+      <div className="grid items-end gap-6 border-t border-line px-(--gut) pt-5 pb-(--gut) md:grid-cols-12">
+        <p className="max-w-[44ch] text-pretty leading-relaxed md:col-span-6">
           ML engineer. Vision models for crops and wildlife, serverless inference on AWS, measured honestly.
         </p>
-        <a href="#/projects" className="link display-sm justify-self-start text-[clamp(2.4rem,5vw,4.5rem)] md:col-span-6 md:justify-self-end">
+        <button
+          type="button"
+          aria-pressed={paused}
+          onClick={() => setPaused(!paused)}
+          className="link justify-self-start py-3 text-[13px] uppercase tracking-[0.12em] text-muted md:col-span-2"
+        >
+          {paused ? 'Resume ticker' : 'Pause ticker'}
+        </button>
+        <a href="#/projects" className="link display-sm justify-self-start text-[clamp(2.2rem,4.4vw,4rem)] md:col-span-4 md:justify-self-end">
           Projects <span className="tabular-nums">({projects.length})</span> <Arrow />
         </a>
       </div>
@@ -189,15 +224,18 @@ function Projects() {
         {projects.length} public projects, each with its measured result. Coursework is marked as coursework.
       </p>
       <ol className="mt-14 md:mt-20">
-        {projects.map((p, i) => (
+        {projects.map((p) => (
           <li key={p.slug}>
-            <a href={`#/p/${p.slug}`} className="group grid grid-cols-[3rem_1fr] items-baseline gap-x-4 py-2.5 md:grid-cols-12 md:py-3">
-              <span className="text-[14px] tabular-nums text-muted md:col-span-1">{nn(i)}</span>
-              <span className="display-sm text-[clamp(1.9rem,4.6vw,4.6rem)] transition-colors group-hover:text-accent md:col-span-7">{p.title}</span>
+            <a href={`#/p/${p.slug}`} className="group grid grid-cols-[4rem_1fr] items-baseline gap-x-4 border-t border-line py-3 md:grid-cols-12 md:py-4">
+              <span className="text-[14px] font-bold text-accent md:col-span-1">{p.ticker}</span>
+              <span className="display-sm text-[clamp(1.9rem,4.6vw,4.6rem)] transition-colors md:col-span-7">{p.title}</span>
               <span className="col-start-2 mt-1 text-[14px] text-muted md:col-span-4 md:col-start-auto md:mt-0 md:text-right">
                 {p.category}
                 {p.coursework && ` · ${p.coursework}`}
-                <span className="block tabular-nums text-ink">{p.results[0]}</span>
+                <span className="block tabular-nums text-ink">
+                  {p.quote}
+                  {p.delta && <span className="ml-3 text-up">{p.delta}</span>}
+                </span>
               </span>
             </a>
           </li>
@@ -218,11 +256,16 @@ function ProjectView({ p, i }: { p: Project; i: number }) {
           <Arrow dir="left" /> Projects
         </a>
         <span className="ml-3 tabular-nums">{nn(i)} / {projects.length}</span>
-        <span className="ml-3">{p.category}{p.coursework && ` · ${p.coursework}`}</span>
       </p>
       <h1 tabIndex={-1} className="display mt-4 max-w-[15ch] text-balance text-[clamp(3.2rem,9.5vw,10rem)] outline-none">
         {p.title}
       </h1>
+      <p className="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-[15px] tabular-nums">
+        <b className="text-accent">{p.ticker}</b>
+        <span>{p.quote}</span>
+        {p.delta && <span className="text-up">{p.delta}</span>}
+        <span className="text-muted">{p.category}{p.coursework && ` · ${p.coursework}`}</span>
+      </p>
       <div className="mt-12 grid gap-10 md:mt-16 md:grid-cols-12">
         <div className="illo-plate md:col-span-6">
           <Illo />
@@ -286,7 +329,7 @@ function About() {
         <Fit lines={['About']} />
       </h1>
       <p className="mt-10 max-w-[28ch] text-balance text-[clamp(1.75rem,3.4vw,3.25rem)] font-medium leading-[1.1]">
-        I build machine-learning systems, taking problems from raw data to models people can use.
+        I build machine‑learning systems, taking problems from raw data to models people can use.
       </p>
       <div className="mt-16 grid gap-12 text-[17px] leading-relaxed md:grid-cols-12">
         <div className="md:col-span-5">

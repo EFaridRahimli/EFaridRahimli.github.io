@@ -69,9 +69,9 @@ function pair(a: Pt[], b: Pt[]) {
   return [sortBy(fill(a)), sortBy(fill(b))] as const
 }
 
-// in flight the ink shifts toward the accent and settles back to ink
-const INK = [17, 18, 20]
-const ACCENT = [31, 59, 255]
+// phosphor: particles settle in terminal amber and run white-hot in flight
+const INK = [255, 160, 40]
+const ACCENT = [255, 240, 214]
 const SHADES = Array.from({ length: 6 }, (_, i) => `rgb(${INK.map((v, j) => Math.round(v + ((ACCENT[j] - v) * i) / 5)).join(',')})`)
 
 export class ParticleLayer {

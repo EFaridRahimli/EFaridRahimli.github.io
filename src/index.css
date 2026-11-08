@@ -1,54 +1,60 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-ground: #edeeef;
-  --color-ink: #111214;
-  --color-muted: #55585f;
-  --color-accent: #1f3bff;
-  --font-sans: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --color-ground: #0b0b0b;
+  --color-ink: #e8e6e1;
+  --color-muted: #8d8a84;
+  --color-line: #262624;
+  --color-accent: #ffa028;
+  --color-up: #3ddc84;
+  --font-sans: 'Martian Mono', ui-monospace, monospace;
+  --font-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
 }
 
 :root {
   --gut: clamp(20px, 3vw, 48px);
+  color-scheme: dark;
 }
 
 html {
-  scrollbar-color: color-mix(in oklab, var(--color-ink) 30%, transparent) transparent;
+  scrollbar-color: var(--color-line) transparent;
   scroll-padding-top: 5rem;
 }
 
 body {
   @apply bg-ground font-sans text-ink antialiased;
-  text-rendering: optimizeLegibility;
+  font-size: 15px;
+  font-stretch: 87.5%;
 }
 
-/* giant type: one family, the width axis carries the voice */
+/* giant type: Chicago-signage condensed, in terminal amber */
 @utility display {
-  font-stretch: extra-condensed;
+  font-family: var(--font-display);
   font-weight: 900;
   text-transform: uppercase;
-  line-height: 0.84;
-  letter-spacing: -0.005em;
+  line-height: 0.86;
+  color: var(--color-accent);
 }
 @utility display-sm {
-  font-stretch: extra-condensed;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 800;
   text-transform: uppercase;
   line-height: 0.92;
+  color: var(--color-accent);
 }
 
 .tabular-nums { font-variant-numeric: tabular-nums; }
 
-/* links: no underline at rest; the accent marks hover, focus and the current page */
+/* links: amber marks hover, focus and the current page; amber display links go to paper white */
 .link { transition: color 0.15s ease-out; }
 .link:hover, .link[aria-current='page'] { color: var(--color-accent); }
+.display.link:hover, .display-sm.link:hover, .group:hover .display-sm { color: var(--color-ink); }
 
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 2px;
 }
-
 /* headings receive focus only from code after a view change; no ring there */
 [tabindex='-1']:focus-visible { outline: none; }
 
@@ -57,7 +63,18 @@ body {
   color: var(--color-ground);
 }
 
+/* ticker tapes: two copies of a sequence slide by half their width, forever */
+.tape { overflow: hidden; white-space: nowrap; }
+.tape-track { display: flex; width: max-content; animation: tape var(--dur) linear infinite; }
+.tape-track[data-reverse] { animation-direction: reverse; }
+.tape-seq { display: flex; flex-shrink: 0; align-items: baseline; gap: 0.6em; padding-right: 0.6em; }
+@keyframes tape { to { transform: translateX(-50%); } }
+.tape:hover .tape-track, .tape:focus-within .tape-track, .is-paused .tape-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .tape-track { animation: none; }
+  .tape { overflow-x: auto; }
+}
+
 /* illustration data labels: live text sized per context */
-.illo img { mix-blend-mode: multiply; }
-.illo-label { font-size: 12px; font-variant-numeric: tabular-nums; }
+.illo-label { font-size: 12px; color: var(--color-accent); font-variant-numeric: tabular-nums; }
 .illo-plate .illo-label { font-size: 13px; }

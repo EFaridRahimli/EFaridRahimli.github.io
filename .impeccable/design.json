@@ -1,28 +1,32 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-08T00:00:00Z",
+  "generatedAt": "2026-11-09T00:00:00Z",
   "title": "Design System: Farid Rahimli",
   "extensions": {
     "colorMeta": {
-      "accent": { "role": "primary", "displayName": "Signal Ultramarine", "canonical": "#1f3bff", "tonalRamp": ["oklch(18% 0.08 266)", "oklch(28% 0.15 266)", "oklch(38% 0.22 266)", "oklch(47% 0.28 266)", "oklch(58% 0.22 266)", "oklch(70% 0.15 266)", "oklch(82% 0.08 266)", "oklch(94% 0.03 266)"] },
-      "ground": { "role": "neutral", "displayName": "Cool Paper", "canonical": "#edeeef", "tonalRamp": ["oklch(18% 0.003 250)", "oklch(30% 0.003 250)", "oklch(42% 0.004 250)", "oklch(55% 0.004 250)", "oklch(67% 0.004 250)", "oklch(79% 0.003 250)", "oklch(89% 0.003 250)", "oklch(94.8% 0.002 250)"] },
-      "ink": { "role": "neutral", "displayName": "Lamp Black", "canonical": "#111214", "tonalRamp": ["oklch(17% 0.004 265)", "oklch(26% 0.005 265)", "oklch(36% 0.006 265)", "oklch(48% 0.006 265)", "oklch(60% 0.005 265)", "oklch(72% 0.004 265)", "oklch(84% 0.003 265)", "oklch(95% 0.002 265)"] },
-      "muted": { "role": "neutral", "displayName": "Graphite", "canonical": "#55585f", "tonalRamp": ["oklch(18% 0.008 265)", "oklch(28% 0.01 265)", "oklch(38% 0.012 265)", "oklch(45% 0.013 265)", "oklch(58% 0.011 265)", "oklch(70% 0.008 265)", "oklch(83% 0.005 265)", "oklch(95% 0.002 265)"] }
+      "accent": { "role": "primary", "displayName": "Terminal Amber", "canonical": "#ffa028", "tonalRamp": ["oklch(22% 0.05 65)", "oklch(34% 0.09 65)", "oklch(46% 0.13 65)", "oklch(58% 0.16 65)", "oklch(70% 0.17 65)", "oklch(79.5% 0.165 65)", "oklch(88% 0.09 70)", "oklch(96% 0.03 75)"] },
+      "up": { "role": "secondary", "displayName": "Signal Green", "canonical": "#3ddc84", "tonalRamp": ["oklch(22% 0.05 155)", "oklch(34% 0.09 155)", "oklch(46% 0.13 155)", "oklch(58% 0.16 155)", "oklch(70% 0.18 155)", "oklch(79% 0.18 155)", "oklch(88% 0.1 155)", "oklch(96% 0.03 155)"] },
+      "ground": { "role": "neutral", "displayName": "Terminal Black", "canonical": "#0b0b0b", "tonalRamp": ["oklch(15% 0 0)", "oklch(26% 0 0)", "oklch(38% 0 0)", "oklch(50% 0 0)", "oklch(62% 0 0)", "oklch(74% 0 0)", "oklch(86% 0 0)", "oklch(95% 0 0)"] },
+      "ink": { "role": "neutral", "displayName": "Paper White", "canonical": "#e8e6e1", "tonalRamp": ["oklch(18% 0.004 85)", "oklch(30% 0.005 85)", "oklch(42% 0.006 85)", "oklch(55% 0.006 85)", "oklch(67% 0.006 85)", "oklch(79% 0.005 85)", "oklch(92.5% 0.006 85)", "oklch(97% 0.003 85)"] },
+      "muted": { "role": "neutral", "displayName": "Graphite", "canonical": "#8d8a84", "tonalRamp": ["oklch(18% 0.005 80)", "oklch(30% 0.006 80)", "oklch(42% 0.007 80)", "oklch(52% 0.008 80)", "oklch(62.5% 0.008 80)", "oklch(74% 0.006 80)", "oklch(86% 0.004 80)", "oklch(95% 0.002 80)"] },
+      "line": { "role": "neutral", "displayName": "Hairline", "canonical": "#262624", "tonalRamp": ["oklch(15% 0.002 100)", "oklch(25.5% 0.003 100)", "oklch(36% 0.003 100)", "oklch(48% 0.003 100)", "oklch(60% 0.003 100)", "oklch(72% 0.002 100)", "oklch(84% 0.002 100)", "oklch(95% 0.001 100)"] }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "View titles and project titles; extra-condensed 900 uppercase, fitted to the full measure by measurement on index, Projects and About." },
-      "headline": { "displayName": "Headline", "purpose": "Project list titles, the Projects (11) action, previous/next titles; extra-condensed 700 uppercase." },
+      "display": { "displayName": "Display", "purpose": "Big Shoulders 900 amber caps: view titles, project-page title, index name tape, About email; full-measure titles fitted by measurement." },
+      "headline": { "displayName": "Headline", "purpose": "Big Shoulders 800 amber caps: project rows, title tape, Projects (11) action, Previous/Next titles." },
       "title": { "displayName": "Title", "purpose": "The one headline result on a project page, tabular." },
-      "lead": { "displayName": "Lead", "purpose": "The single sentence under the name on the index." },
+      "lead": { "displayName": "Lead", "purpose": "The About statement, max 28ch." },
+      "quote": { "displayName": "Quote", "purpose": "Symbol tape: bold amber symbol, paper-white quote, green measured delta." },
       "body": { "displayName": "Body", "purpose": "Summaries, results and About prose, max 60ch." },
-      "label": { "displayName": "Label", "purpose": "Header links, metadata, section labels; usually Graphite." }
+      "label": { "displayName": "Label", "purpose": "Header, metadata, section labels; usually Graphite." }
     },
     "shadows": [],
     "motion": [
-      { "name": "link-color", "value": "color 150ms ease-out", "purpose": "Link hover, focus and current-page color change." },
-      { "name": "particle-transition", "value": "1250ms; disperse ease-out cubic over first 32%, fuse ease-in-out cubic; left-to-right stagger up to 24%", "purpose": "View change: text and drawings dissolve to particles and re-form; ink to ultramarine and back in flight." },
+      { "name": "link-color", "value": "color 150ms ease-out", "purpose": "Hover, focus and current-page color swap." },
+      { "name": "ticker-tape", "value": "translateX(0 to -50%), linear, infinite; 38s name, 60s symbols (reverse), 90s titles", "purpose": "Perpetual ticker on the index. Pauses on hover, focus-within and the Pause control (aria-pressed); none under prefers-reduced-motion (WCAG 2.2.2)." },
+      { "name": "particle-transition", "value": "1250ms; disperse ease-out cubic over first 32%, fuse ease-in-out cubic; left-to-right stagger up to 24%", "purpose": "View change: text and drawings dissolve to amber particles, white-hot in flight, and re-form." },
       { "name": "particle-intro", "value": "600ms fuse only", "purpose": "First load: particles fuse into the first view." },
-      { "name": "content-fade", "value": "opacity 0 to 1, 220ms ease-out", "purpose": "Real DOM text fades in over settled particles; also the whole transition under prefers-reduced-motion." }
+      { "name": "content-fade", "value": "opacity 0 to 1, 220ms ease-out", "purpose": "DOM fades in over settled particles; the whole transition under reduced motion." }
     ],
     "breakpoints": [
       { "name": "sm", "value": "640px" },
@@ -34,73 +38,91 @@
       "name": "Header Navigation",
       "kind": "nav",
       "refersTo": "header",
-      "description": "Fixed ground-colored header: name left, three text links right; accent marks hover, focus and the current page.",
+      "description": "Fixed black header: name left, three mono links right; amber marks hover, focus and the current page.",
       "html": "<header class=\"ds-header\"><a href=\"#\" class=\"ds-link ds-name\">Farid Rahimli</a><nav class=\"ds-nav\"><a href=\"#\" class=\"ds-link\" aria-current=\"page\">Projects</a><a href=\"#\" class=\"ds-link\">About</a><a href=\"#\" class=\"ds-link\">Email</a></nav></header>",
-      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; background: #edeeef; color: #111214; padding: 12px clamp(20px, 3vw, 48px); font-family: Archivo, ui-sans-serif, system-ui, sans-serif; font-size: 14px; } .ds-nav { display: flex; gap: 16px; } .ds-name { font-weight: 600; } .ds-link { color: inherit; text-decoration: none; padding: 12px 8px; transition: color 0.15s ease-out; } .ds-link:hover, .ds-link[aria-current='page'] { color: #1f3bff; } .ds-link:focus-visible { outline: 2px solid #1f3bff; outline-offset: 3px; border-radius: 2px; }"
+      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; background: #0b0b0b; color: #e8e6e1; padding: 12px clamp(20px, 3vw, 48px); font-family: 'Martian Mono', ui-monospace, monospace; font-stretch: 87.5%; font-size: 14px; } .ds-nav { display: flex; gap: 16px; } .ds-name { font-weight: 600; } .ds-link { color: inherit; text-decoration: none; padding: 12px 8px; transition: color 0.15s ease-out; } .ds-link:hover, .ds-link[aria-current='page'] { color: #ffa028; } .ds-link:focus-visible { outline: 2px solid #ffa028; outline-offset: 3px; border-radius: 2px; }"
+    },
+    {
+      "name": "Ticker Tape",
+      "kind": "custom",
+      "refersTo": "ticker-symbol",
+      "description": "Full-bleed hairline-ruled tape of symbol, quote and measured delta, looping forever; pauses on hover/focus and stands still under reduced motion.",
+      "html": "<div class=\"ds-tape\"><div class=\"ds-track\"><div class=\"ds-seq\"><span><b class=\"ds-sym\">TMTO</b> mAP50-95 0.840 <span class=\"ds-up\">▲ 0.152 vs YOLOv5s</span></span><span><b class=\"ds-sym\">SRGT</b> ACC 81.1%</span><span><b class=\"ds-sym\">BIKE</b> SCORE 0.421 <span class=\"ds-up\">▼ 1.443 from 1.864</span></span></div><div class=\"ds-seq\" aria-hidden=\"true\"><span><b class=\"ds-sym\">TMTO</b> mAP50-95 0.840 <span class=\"ds-up\">▲ 0.152 vs YOLOv5s</span></span><span><b class=\"ds-sym\">SRGT</b> ACC 81.1%</span><span><b class=\"ds-sym\">BIKE</b> SCORE 0.421 <span class=\"ds-up\">▼ 1.443 from 1.864</span></span></div></div></div>",
+      "css": ".ds-tape { overflow: hidden; white-space: nowrap; border-top: 1px solid #262624; border-bottom: 1px solid #262624; background: #0b0b0b; color: #e8e6e1; padding: 12px 0; font-family: 'Martian Mono', ui-monospace, monospace; font-stretch: 87.5%; font-size: clamp(0.95rem, 1.6vw, 1.35rem); font-variant-numeric: tabular-nums; } .ds-track { display: flex; width: max-content; animation: ds-tape 30s linear infinite reverse; } .ds-seq { display: flex; flex-shrink: 0; gap: 1.6em; padding-right: 1.6em; } .ds-sym { color: #ffa028; font-weight: 700; } .ds-up { color: #3ddc84; } .ds-tape:hover .ds-track, .ds-tape:focus-within .ds-track { animation-play-state: paused; } @keyframes ds-tape { to { transform: translateX(-50%); } } @media (prefers-reduced-motion: reduce) { .ds-track { animation: none; } .ds-tape { overflow-x: auto; } }"
     },
     {
       "name": "Display Link",
       "kind": "button",
       "refersTo": "display-link",
-      "description": "The primary action: a link set in extra-condensed display type with a trailing arrow. No filled buttons exist.",
+      "description": "The primary action: amber condensed caps with a trailing arrow, paper white on hover. No filled buttons exist.",
       "html": "<a href=\"#\" class=\"ds-display-link\">Projects <span class=\"ds-tnum\">(11)</span> <svg width=\"0.9em\" height=\"0.9em\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
-      "css": ".ds-display-link { font-family: Archivo, ui-sans-serif, system-ui, sans-serif; font-stretch: extra-condensed; font-weight: 700; text-transform: uppercase; line-height: 0.92; font-size: clamp(2.4rem, 5vw, 4.5rem); color: #111214; text-decoration: none; transition: color 0.15s ease-out; } .ds-display-link:hover { color: #1f3bff; } .ds-display-link:focus-visible { outline: 2px solid #1f3bff; outline-offset: 3px; border-radius: 2px; } .ds-tnum { font-variant-numeric: tabular-nums; }"
+      "css": ".ds-display-link { font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif; font-weight: 800; text-transform: uppercase; line-height: 0.92; font-size: clamp(2.2rem, 4.4vw, 4rem); color: #ffa028; text-decoration: none; transition: color 0.15s ease-out; } .ds-display-link:hover { color: #e8e6e1; } .ds-display-link:focus-visible { outline: 2px solid #ffa028; outline-offset: 3px; border-radius: 2px; } .ds-tnum { font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Pause Control",
+      "kind": "button",
+      "refersTo": "pause-control",
+      "description": "Visible text toggle that stops every ticker tape; aria-pressed reflects state, label names the action.",
+      "html": "<button type=\"button\" class=\"ds-pause\" aria-pressed=\"false\">Pause ticker</button>",
+      "css": ".ds-pause { background: none; border: 0; padding: 12px 0; font-family: 'Martian Mono', ui-monospace, monospace; font-stretch: 87.5%; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #8d8a84; cursor: pointer; transition: color 0.15s ease-out; } .ds-pause:hover { color: #ffa028; } .ds-pause:focus-visible { outline: 2px solid #ffa028; outline-offset: 3px; border-radius: 2px; }"
     },
     {
       "name": "Project Row",
       "kind": "custom",
       "refersTo": "project-row",
-      "description": "One numbered project: Graphite index, headline title, category over the first result. The whole row links; the title turns ultramarine on hover.",
-      "html": "<a href=\"#\" class=\"ds-row\"><span class=\"ds-row-n\">01</span><span class=\"ds-row-title\">Tomato Leaf Disease Detection</span><span class=\"ds-row-meta\">Vision · Capstone<span class=\"ds-row-result\">mAP@0.5 of 0.957 on 1,051 test images</span></span></a>",
-      "css": ".ds-row { display: grid; grid-template-columns: 3rem 1fr 16rem; align-items: baseline; column-gap: 16px; padding: 12px 0; color: #111214; text-decoration: none; font-family: Archivo, ui-sans-serif, system-ui, sans-serif; } .ds-row-n { font-size: 14px; font-variant-numeric: tabular-nums; color: #55585f; } .ds-row-title { font-stretch: extra-condensed; font-weight: 700; text-transform: uppercase; line-height: 0.92; font-size: clamp(1.9rem, 4.6vw, 4.6rem); transition: color 0.15s; } .ds-row:hover .ds-row-title { color: #1f3bff; } .ds-row:focus-visible { outline: 2px solid #1f3bff; outline-offset: 3px; border-radius: 2px; } .ds-row-meta { font-size: 14px; color: #55585f; text-align: right; } .ds-row-result { display: block; color: #111214; font-variant-numeric: tabular-nums; }"
+      "description": "Hairline-ruled row: amber symbol, condensed title, Graphite category over the quote and measured delta. Title goes paper white on hover.",
+      "html": "<a href=\"#\" class=\"ds-row\"><span class=\"ds-row-sym\">TMTO</span><span class=\"ds-row-title\">Tomato Leaf Disease Detection</span><span class=\"ds-row-meta\">Vision · Capstone<span class=\"ds-row-quote\">mAP50-95 0.840<span class=\"ds-up\">▲ 0.152 vs YOLOv5s</span></span></span></a>",
+      "css": ".ds-row { display: grid; grid-template-columns: 4rem 1fr 18rem; align-items: baseline; column-gap: 16px; padding: 16px 0; border-top: 1px solid #262624; background: #0b0b0b; text-decoration: none; font-family: 'Martian Mono', ui-monospace, monospace; font-stretch: 87.5%; } .ds-row-sym { font-size: 14px; font-weight: 700; color: #ffa028; } .ds-row-title { font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif; font-weight: 800; text-transform: uppercase; line-height: 0.92; font-size: clamp(1.9rem, 4.6vw, 4.6rem); color: #ffa028; transition: color 0.15s; } .ds-row:hover .ds-row-title { color: #e8e6e1; } .ds-row:focus-visible { outline: 2px solid #ffa028; outline-offset: 3px; border-radius: 2px; } .ds-row-meta { font-size: 14px; color: #8d8a84; text-align: right; } .ds-row-quote { display: block; color: #e8e6e1; font-variant-numeric: tabular-nums; } .ds-up { color: #3ddc84; margin-left: 12px; }"
+    },
+    {
+      "name": "Quote Line",
+      "kind": "chip",
+      "refersTo": "ticker-delta",
+      "description": "Project-page line under the title: symbol, quote, measured delta, category. Text only, no chips.",
+      "html": "<p class=\"ds-quote\"><b class=\"ds-sym\">TMTO</b><span>mAP50-95 0.840</span><span class=\"ds-up\">▲ 0.152 vs YOLOv5s</span><span class=\"ds-muted\">Vision · Capstone</span></p>",
+      "css": ".ds-quote { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0; background: #0b0b0b; color: #e8e6e1; font-family: 'Martian Mono', ui-monospace, monospace; font-stretch: 87.5%; font-size: 15px; font-variant-numeric: tabular-nums; } .ds-sym { color: #ffa028; } .ds-up { color: #3ddc84; } .ds-muted { color: #8d8a84; }"
     },
     {
       "name": "Display Title",
       "kind": "custom",
       "refersTo": "display",
-      "description": "View title in extra-condensed 900 capitals; in the build its size is computed so the widest line spans the full measure.",
-      "html": "<h1 class=\"ds-display\"><span>Farid</span><span>Rahimli</span></h1>",
-      "css": ".ds-display { margin: 0; font-family: Archivo, ui-sans-serif, system-ui, sans-serif; font-stretch: extra-condensed; font-weight: 900; text-transform: uppercase; line-height: 0.84; letter-spacing: -0.005em; font-size: clamp(3.2rem, 9.5vw, 10rem); color: #111214; } .ds-display span { display: block; }"
-    },
-    {
-      "name": "Metadata Line",
-      "kind": "chip",
-      "refersTo": "label",
-      "description": "Back link, position and category on a project page: 14px Graphite text, no chips or pills.",
-      "html": "<p class=\"ds-meta\"><a href=\"#\" class=\"ds-meta-link\">← Projects</a><span class=\"ds-tnum\">01 / 11</span><span>Vision · Capstone</span></p>",
-      "css": ".ds-meta { display: flex; gap: 12px; font-family: Archivo, ui-sans-serif, system-ui, sans-serif; font-size: 14px; color: #55585f; } .ds-meta-link { color: #111214; text-decoration: none; transition: color 0.15s ease-out; } .ds-meta-link:hover { color: #1f3bff; } .ds-meta-link:focus-visible { outline: 2px solid #1f3bff; outline-offset: 3px; border-radius: 2px; } .ds-tnum { font-variant-numeric: tabular-nums; }"
+      "description": "View title in amber Big Shoulders 900 caps; in the build full-measure titles are sized by measurement.",
+      "html": "<h1 class=\"ds-display\">Tomato Leaf Disease Detection</h1>",
+      "css": ".ds-display { margin: 0; max-width: 15ch; text-wrap: balance; font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif; font-weight: 900; text-transform: uppercase; line-height: 0.86; font-size: clamp(3.2rem, 9.5vw, 10rem); color: #ffa028; background: #0b0b0b; }"
     }
   ],
   "narrative": {
-    "northStar": "Ink on a Still Ground",
-    "overview": "The type is the interface. Every view is a handful of enormous words in one family, Archivo, set on a 12-column grid over a cool white ground that never moves. The width axis carries the voice: extra-condensed heavy capitals for anything that names a place or a project, normal-width text for everything you read. There are no surfaces to sit content on: no cards, no panels, no shadows, no rules. Hierarchy comes from size and width alone, and the jump between them is deliberately violent.\n\nMotion has one job and one form. Changing view samples the rendered words and drawings into ink particles, scatters them, and re-forms them as the next view; the particles shift to ultramarine in flight and settle back to ink before the real DOM text fades in on top. The ground stays still throughout. Reduced motion gets a 220ms opacity crossfade and nothing else.\n\nImagery is traced line art: black strokes multiplied onto the ground, with any data label set as live text beside the detail it names.",
+    "northStar": "The Trading Floor After Hours",
+    "overview": "A quote board for one engineer's work, lit in terminal amber on a black that never moves. The landing view is a perpetual ticker: the name rolls past in giant condensed signage capitals, a symbol tape quotes each project's real headline figure, and the project titles roll underneath as links. Every other view is a few enormous amber words over paper-white reading text set in a semi-condensed monospace.\n\nHierarchy is two voices and nothing else: Chicago-signage display caps for anything that names a person, a place or a project, and tabular monospace for everything you read or count. Structure comes from hairline row rules, the way a board separates its tapes; there are no cards, panels, shadows or glass.\n\nMotion has two forms. The tapes roll forever (user-requested) and stop on hover, focus, a visible Pause control, and under reduced motion. Changing view samples the rendered words and drawings into amber phosphor particles that run white-hot in flight and re-form as the next view over the still ground. Imagery is traced line art in paper white with amber live-text data labels.",
     "keyCharacteristics": [
-      "One family, three voices by width and weight; tabular figures on every number.",
-      "Display lines fitted to the full measure by measurement, not by a guessed size.",
-      "Four colors; the accent appears only as state and in flight.",
-      "Flat: no elevation, no borders, no containers.",
-      "One signature motion: particle dissolve and re-form between views."
+      "Black ground, amber display, paper-white reading text; green only for a measured change.",
+      "Two families: Big Shoulders Display caps for names, Martian Mono (semi-condensed, tabular) for text and figures.",
+      "Ticker grammar: symbol, quote, delta, on hairline-ruled tapes.",
+      "Flat: depth is only the transient particle canvas.",
+      "Two motions: the pausable ticker and the particle dissolve between views."
     ],
     "rules": [
-      { "name": "The Accent Is a State Rule", "body": "Ultramarine appears only for hover, focus, current page, selection, and particles in flight. If a screen at rest shows ultramarine anywhere except the current-page link, it is wrong.", "section": "colors" },
-      { "name": "The Still Ground Rule", "body": "The ground color never changes, animates, or carries an image. Only ink moves.", "section": "colors" },
-      { "name": "The Width Carries the Voice Rule", "body": "Emphasis is made by width and weight within Archivo, never by a second family, italics, or color.", "section": "typography" },
-      { "name": "The Every Number Is Tabular Rule", "body": "Metrics, counts, indices, and data labels set with `tabular-nums`.", "section": "typography" },
-      { "name": "The Fit Rule", "body": "A view title is sized to the measure by measuring the rendered line, so its longest line touches both gutters. Never pick a display size by eye for a full-measure title.", "section": "typography" },
-      { "name": "The Nothing to Sit On Rule", "body": "Content sits directly on the ground. No cards, panels, chips, or dividers; grouping is done with grid position and spacing.", "section": "elevation" }
+      { "name": "The Measured Green Rule", "body": "Green appears only on a delta that a project actually measured. No delta, no green; a quote without a baseline stays paper white.", "section": "colors" },
+      { "name": "The Amber Inverts on Hover Rule", "body": "Amber display type goes to paper white on hover; paper-white text links go to amber. State is always the swap to the other voice.", "section": "colors" },
+      { "name": "The Still Ground Rule", "body": "The ground never changes, animates or carries an image. Only type, tapes and particles move.", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "Big Shoulders for names, Martian Mono for everything read or counted. No third family, no italics.", "section": "typography" },
+      { "name": "The Every Number Is Tabular Rule", "body": "Quotes, deltas, metrics, counts, positions and data labels set with `tabular-nums`.", "section": "typography" },
+      { "name": "The Fit Rule", "body": "A full-measure view title is sized by measuring the rendered line so its widest line touches both gutters. Never pick that size by eye.", "section": "typography" },
+      { "name": "The Board Has Rows, Not Boxes Rule", "body": "Group with a top hairline and grid position. No cards, panels, pills or bordered boxes.", "section": "elevation" }
     ],
     "dos": [
-      "**Do** set every view title in Display and fit it to the measure by measurement.",
-      "**Do** keep ultramarine to hover, focus, current page, selection, and particles in flight.",
-      "**Do** use tabular figures for every metric, count, and index.",
-      "**Do** give every number a real source; data labels on drawings are live text, never baked into the image.",
-      "**Do** give reduced-motion users the 220ms crossfade and keep the content fully readable without the particle layer."
+      "**Do** set names, view titles and project titles in amber Big Shoulders caps, and fit full-measure titles by measurement.",
+      "**Do** set every figure in tabular Martian Mono, and quote each project as symbol, figure and (only if measured) delta.",
+      "**Do** keep green to real measured deltas.",
+      "**Do** separate rows and tapes with a single 1px hairline.",
+      "**Do** ship any perpetual motion with pause on hover and focus, a visible Pause control with `aria-pressed`, and no animation under reduced motion.",
+      "**Do** keep data labels on drawings as live text, never baked into the image."
     ],
     "donts": [
-      "**Don't** add a second typeface; contrast comes from Archivo's width and weight.",
-      "**Don't** put content in cards, panels, or bordered boxes, or add shadows.",
-      "**Don't** animate the ground or add scroll-triggered reveals; the only motion is the view transition and color state.",
-      "**Don't** fill areas with the accent or use it as decoration.",
+      "**Don't** add a third typeface or italics.",
+      "**Don't** put content in cards, panels, pills or bordered boxes, or add shadows or glass.",
+      "**Don't** use green for anything but a measured change, or invent a delta to fill a quote.",
+      "**Don't** animate the ground or add scroll-triggered reveals; motion is the ticker, the view transition and color state.",
       "**Don't** add filled buttons; actions are type."
     ]
   }
