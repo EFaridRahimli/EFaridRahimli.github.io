@@ -15,10 +15,11 @@ export type Project = {
 }
 
 export const categoryColor: Record<Category, string> = {
-  'Computer vision': '#7dd3fc',
-  'Machine learning': '#86efac',
-  'MLOps & cloud': '#fcd34d',
-  'Apps & analysis': '#c4b5fd',
+  // Stain colours, tuned to read on the black glass.
+  'Computer vision': '#8fd3c1',
+  'Machine learning': '#c5dc7a',
+  'MLOps & cloud': '#f0c060',
+  'Apps & analysis': '#b8a8f0',
 }
 
 // Numbers come from each repo's notebook outputs and training logs (see the repo READMEs).
@@ -145,7 +146,7 @@ export const yoloResults = [
 
 // Validation accuracy per epoch, from the Serengeti repo's *_log.csv files.
 export const serengetiLogs = [
-  { model: 'ResNet-50', color: '#7dd3fc', values: [0.694, 0.724, 0.745, 0.761, 0.771, 0.775, 0.777, 0.79, 0.789, 0.791, 0.793, 0.778, 0.801, 0.8, 0.799, 0.801, 0.795, 0.8, 0.8, 0.811] },
-  { model: 'VGG-19', color: '#c4b5fd', values: [0.671, 0.7, 0.728, 0.726, 0.749, 0.746, 0.754, 0.763, 0.773, 0.775, 0.78, 0.778, 0.788, 0.796, 0.785, 0.792, 0.795, 0.791, 0.799, 0.81] },
-  { model: 'MobileNetV2', color: '#86efac', values: [0.675, 0.708, 0.714, 0.731, 0.743, 0.734, 0.753, 0.741, 0.751, 0.752, 0.757, 0.766, 0.779, 0.771, 0.771, 0.779, 0.773, 0.778, 0.784, 0.784] },
+  { model: 'ResNet-50', color: '#8fd3c1', values: [0.694, 0.724, 0.745, 0.761, 0.771, 0.775, 0.777, 0.79, 0.789, 0.791, 0.793, 0.778, 0.801, 0.8, 0.799, 0.801, 0.795, 0.8, 0.8, 0.811] },
+  { model: 'VGG-19', color: '#b8a8f0', values: [0.671, 0.7, 0.728, 0.726, 0.749, 0.746, 0.754, 0.763, 0.773, 0.775, 0.78, 0.778, 0.788, 0.796, 0.785, 0.792, 0.795, 0.791, 0.799, 0.81] },
+  { model: 'MobileNetV2', color: '#c5dc7a', values: [0.675, 0.708, 0.714, 0.731, 0.743, 0.734, 0.753, 0.741, 0.751, 0.752, 0.757, 0.766, 0.779, 0.771, 0.771, 0.779, 0.773, 0.778, 0.784, 0.784] },
 ]

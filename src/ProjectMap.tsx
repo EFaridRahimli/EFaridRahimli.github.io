@@ -28,7 +28,8 @@ const positions = (() => {
 const dots = projects.flatMap((_, c) =>
   Array.from({ length: DOTS }, () => {
     const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random())
-    return { c, ox: Math.cos(a) * r, oy: Math.sin(a) * r, seed: Math.random() * 1000 }
+    // sx/sy: scattered start point for the one-time "settle" into the embedding.
+    return { c, ox: Math.cos(a) * r, oy: Math.sin(a) * r, seed: Math.random() * 1000, sx: Math.random(), sy: Math.random() }
   }),
 )
 
@@ -48,9 +49,13 @@ export function ProjectMap({ onPick }: { onPick: (repo: string) => void }) {
     const canvas = canvasRef.current!
     const ctx = canvas.getContext('2d')!
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
-    let w = 0, h = 0, R = 0, raf = 0, visible = true, dirty = true
+    let w = 0, h = 0, R = 0, raf = 0, visible = true, dirty = true, start = -1
 
-    const centre = (c: number) => ({ x: PAD.x + positions[c][0] * (w - PAD.x * 2), y: PAD.y + positions[c][1] * (h - PAD.y * 2) })
+    // Padding scales with the slide so wide screens pull clusters inward instead of into the corners.
+    const centre = (c: number) => {
+      const px = Math.max(PAD.x, w * 0.14), py = Math.max(PAD.y, h * 0.16)
+      return { x: px + positions[c][0] * (w - px * 2), y: py + positions[c][1] * (h - py * 2) }
+    }
     const setHover = (c: number) => {
       if (c < 0) canvas.style.cursor = ''
       if (c === activeRef.current) return
@@ -82,37 +87,44 @@ export function ProjectMap({ onPick }: { onPick: (repo: string) => void }) {
 
     const draw = (t: number) => {
       const act = activeRef.current
+      if (start < 0) start = t
+      // Ease-out from scattered noise to the embedded layout over 1.6s, once per page load.
+      const settle = reduced ? 1 : 1 - (1 - Math.min(1, (t - start) / 1600)) ** 4
       ctx.clearRect(0, 0, w, h)
       for (const d of dots) {
         const p = centre(d.c)
         const on = act === d.c
         const wob = reduced ? 0 : 0.18
         const k = on ? 0.6 : 1
-        const x = p.x + (d.ox * k + Math.sin(t * 0.0006 + d.seed) * wob) * R
-        const y = p.y + (d.oy * k + Math.cos(t * 0.0005 + d.seed * 1.7) * wob) * R
+        const hx = p.x + (d.ox * k + Math.sin(t * 0.0006 + d.seed) * wob) * R
+        const hy = p.y + (d.oy * k + Math.cos(t * 0.0005 + d.seed * 1.7) * wob) * R
+        const x = d.sx * w + (hx - d.sx * w) * settle
+        const y = d.sy * h + (hy - d.sy * h) * settle
         ctx.globalAlpha = act < 0 ? 0.75 : on ? 1 : 0.18
         ctx.fillStyle = categoryColor[projects[d.c].category]
         ctx.beginPath()
-        ctx.arc(x, y, on ? 2.1 : 1.6, 0, Math.PI * 2)
+        ctx.arc(x, y, on ? 2.4 : 1.9, 0, Math.PI * 2)
         ctx.fill()
       }
       ctx.globalAlpha = 1
       if (act >= 0) {
         const p = projects[act], c = centre(act)
         const title = p.title, metric = p.metric ? `  ${p.metric} ${p.metricLabel}` : ''
-        ctx.font = '500 13px Geist, system-ui, sans-serif'
+        const titleFont = '500 15px Archivo, system-ui, sans-serif'
+        const metricFont = '400 14px Archivo, system-ui, sans-serif'
+        ctx.font = titleFont
         const tw = ctx.measureText(title).width
-        ctx.font = '400 12px "Geist Mono", ui-monospace, monospace'
+        ctx.font = metricFont
         const mw = ctx.measureText(metric).width
         // Keep the label inside the canvas: above the cluster, or below it near the top edge.
         const x = Math.min(Math.max(c.x - (tw + mw) / 2, 8), w - tw - mw - 8)
         const y = c.y - R * 1.6 < 18 ? c.y + R * 1.6 + 12 : c.y - R * 1.6
         ctx.textAlign = 'left'
-        ctx.fillStyle = '#eef0f3'
-        ctx.font = '500 13px Geist, system-ui, sans-serif'
+        ctx.fillStyle = '#e8ece6'
+        ctx.font = titleFont
         ctx.fillText(title, x, y)
         ctx.fillStyle = categoryColor[p.category]
-        ctx.font = '400 12px "Geist Mono", ui-monospace, monospace'
+        ctx.font = metricFont
         ctx.fillText(metric, x + tw, y)
       }
     }
@@ -165,19 +177,21 @@ export function ProjectMap({ onPick }: { onPick: (repo: string) => void }) {
   }, [])
 
   return (
-    <figure className="map panel">
-      <canvas ref={canvasRef} className="map__canvas" aria-hidden="true" />
+    <figure className="map">
+      <div className="slide map__slide">
+        <canvas ref={canvasRef} className="map__canvas" aria-hidden="true" />
+      </div>
       <figcaption className="map__caption">
         <p className="sr-only" aria-live="polite">{coarse && active >= 0 ? `${projects[active].title} selected. Tap again to jump to it.` : ''}</p>
+        <p className="map__note">
+          Each cluster is one project, placed by how similar its write-up is to the others (TF-IDF and MDS), so closer
+          clusters are more alike. {coarse ? 'Tap a cluster to see it, then tap again to jump to it.' : 'Hover a cluster to see it, click to jump to it.'}
+        </p>
         <ul className="legend" aria-label="Domains">
           {categories.map((c) => (
             <li key={c}><span className="dot" style={{ background: categoryColor[c] }} aria-hidden="true" />{c}</li>
           ))}
         </ul>
-        <p className="map__note">
-          Each cluster is a project, placed by the text similarity of its description (TF-IDF + MDS); closer means
-          more alike. {coarse ? 'Tap a cluster to preview it, tap again to jump to it.' : 'Hover a cluster to preview it, click to jump to it.'}
-        </p>
       </figcaption>
     </figure>
   )
