@@ -1,15 +1,15 @@
-# efaridrahimli.github.io
+# Farid Rahimli portfolio
 
-Personal portfolio of **Farid Rahimli**, live at https://efaridrahimli.github.io
+One-page portfolio built with Vite, React and the Astryx design system (Neutral theme).
 
-Built with React + Vite + TypeScript. Deployed to GitHub Pages from the `gh-pages` branch with `npm run deploy`.
+## Commands
 
-## Edit projects
-All project cards come from `src/projects.ts`. Add or edit an entry there and push.
+- `npm run dev`: local dev server
+- `npm run build`: syncs public repos from GitHub into `src/repos.json`, then builds to `dist/`
+- `npm run sync`: sync repos only
+- `npm run preview`: serve the built site
 
-## Develop
-```bash
-npm install
-npm run dev
-npm run build
-```
+## Content
+
+- `src/projects.ts`: hand-checked project text and metrics, keyed by GitHub repo name. A public repo without an entry still appears, built from its GitHub description, under "Other".
+- `public/Farid_Rahimli_CV.pdf`: the CV linked from the page.

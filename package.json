@@ -1,5 +1,5 @@
 {
-  "name": "efaridrahimli-github-io",
+  "name": "farid-rahimli-portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,14 +8,18 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
+    "sync": "node scripts/sync-github.mjs",
+    "prebuild": "node scripts/sync-github.mjs",
     "deploy": "npm run build && cd dist && git init -q -b gh-pages && git add -A && git commit -q -m deploy && git push -f https://github.com/EFaridRahimli/EFaridRahimli.github.io.git gh-pages"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.3.5",
-    "lucide-react": "^1.70.0",
+    "@astryxdesign/cli": "^0.7.11",
+    "@astryxdesign/core": "^0.7.11",
+    "@astryxdesign/theme-neutral": "^0.7.11",
+    "@heroicons/react": "^2.2.0",
+    "@stylexjs/stylex": "^0.19.1",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "tailwindcss": "^4.3.5"
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",

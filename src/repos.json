@@ -1,0 +1,93 @@
+{
+  "syncedAt": "2026-11-10T09:01:13.373Z",
+  "repos": [
+    {
+      "name": "bike-sharing-demand-forecast",
+      "description": "Hourly bike-rental demand forecasting with AutoGluon AutoML: Kaggle score improved from 1.864 to 0.421",
+      "language": "Jupyter Notebook",
+      "url": "https://github.com/EFaridRahimli/bike-sharing-demand-forecast",
+      "homepage": "",
+      "pushedAt": "2026-11-10T08:59:53Z"
+    },
+    {
+      "name": "car-dealership-eda",
+      "description": "Exploratory analysis of 558,837 US used-car sales to guide stock, pricing and expansion for a dealership",
+      "language": "HTML",
+      "url": "https://github.com/EFaridRahimli/car-dealership-eda",
+      "homepage": "",
+      "pushedAt": "2026-11-10T08:59:34Z"
+    },
+    {
+      "name": "dog-breed-classifier-sagemaker",
+      "description": "ResNet-18 fine-tuned for 133 dog breeds on AWS SageMaker with tuning, Debugger, Profiler and a deployed endpoint; 80.8% val accuracy",
+      "language": "Jupyter Notebook",
+      "url": "https://github.com/EFaridRahimli/dog-breed-classifier-sagemaker",
+      "homepage": "",
+      "pushedAt": "2026-11-10T08:59:37Z"
+    },
+    {
+      "name": "gamma-ray-classification",
+      "description": "MAGIC telescope events as gamma-ray signal or hadron background: tuned XGBoost 86.6% test accuracy vs a Keras MLP",
+      "language": "Jupyter Notebook",
+      "url": "https://github.com/EFaridRahimli/gamma-ray-classification",
+      "homepage": "",
+      "pushedAt": "2026-11-10T08:59:43Z"
+    },
+    {
+      "name": "gdpr-rag",
+      "description": "End-to-end RAG over the GDPR: cited answers, document uploads and an Article 13/14 privacy-policy compliance check, with evals",
+      "language": "Python",
+      "url": "https://github.com/EFaridRahimli/gdpr-rag",
+      "homepage": "",
+      "pushedAt": "2026-11-10T03:23:09Z"
+    },
+    {
+      "name": "grape-leaf-disease-classification",
+      "description": "Keras CNN classifying grape leaves as Black Rot, ESCA, Leaf Blight or Healthy: 98.5% test accuracy, best of 10 experiments",
+      "language": "HTML",
+      "url": "https://github.com/EFaridRahimli/grape-leaf-disease-classification",
+      "homepage": "",
+      "pushedAt": "2026-11-10T08:59:40Z"
+    },
+    {
+      "name": "hotel-cancellation-prediction",
+      "description": "Predicts hotel booking cancellations with XGBoost: 89.2% test accuracy on 10,883 bookings vs a 67.3% majority baseline",
+      "language": "HTML",
+      "url": "https://github.com/EFaridRahimli/hotel-cancellation-prediction",
+      "homepage": "",
+      "pushedAt": "2026-11-10T08:59:55Z"
+    },
+    {
+      "name": "movie-review-sentiment",
+      "description": "TF-IDF + tuned Naive Bayes sentiment classifier for IMDB reviews: 88.5% accuracy on 8,000 held-out reviews",
+      "language": "Jupyter Notebook",
+      "url": "https://github.com/EFaridRahimli/movie-review-sentiment",
+      "homepage": "",
+      "pushedAt": "2026-11-10T08:59:48Z"
+    },
+    {
+      "name": "serengeti-camera-trap-benchmark",
+      "description": "VGG-19, ResNet-50 and MobileNetV2 on Snapshot Serengeti: accuracy vs latency for conservation AI; ResNet-50 81.09% val accuracy",
+      "language": "Jupyter Notebook",
+      "url": "https://github.com/EFaridRahimli/serengeti-camera-trap-benchmark",
+      "homepage": "",
+      "pushedAt": "2026-11-10T08:59:45Z"
+    },
+    {
+      "name": "serverless-ml-workflow-aws",
+      "description": "Serverless image classification on AWS with SageMaker, Lambda and Step Functions, a 0.67 confidence gate and Model Monitor",
+      "language": "Jupyter Notebook",
+      "url": "https://github.com/EFaridRahimli/serverless-ml-workflow-aws",
+      "homepage": "",
+      "pushedAt": "2026-11-10T08:59:50Z"
+    },
+    {
+      "name": "tomato-leaf-disease-detection",
+      "description": "YOLOv8 vs YOLOv5s for tomato leaf disease detection in field images: test mAP@0.5:0.95 0.840 vs 0.688, 2.8 ms/image",
+      "language": "Jupyter Notebook",
+      "url": "https://github.com/EFaridRahimli/tomato-leaf-disease-detection",
+      "homepage": "",
+      "pushedAt": "2026-11-10T08:59:32Z"
+    }
+  ]
+}
